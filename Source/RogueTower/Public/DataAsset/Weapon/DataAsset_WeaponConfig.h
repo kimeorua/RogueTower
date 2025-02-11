@@ -22,6 +22,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName WeaponAttachmentSocketName;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	ERogueTowerWeaponType WeaponType;
+
 	bool IsValud() const
 	{
 		return IsValid(WeaponClass); 
@@ -37,9 +40,6 @@ class ROGUETOWER_API UDataAsset_WeaponConfig : public UDataAsset
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	ERogueTowerWeaponType WeaponType;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FWeaponData> WeaponDatas;
 };

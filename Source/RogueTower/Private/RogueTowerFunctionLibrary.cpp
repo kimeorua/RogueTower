@@ -3,6 +3,9 @@
 
 #include "RogueTowerFunctionLibrary.h"
 #include "Engine/Engine.h"
+#include "GAS/RogueTowerAbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "RogueTowerTags.h"
 
 
 void URogueTowerFunctionLibrary::ToggleInputMode(const UObject* WorldContextObject, ERogueTowerInputMode InInputMode)
@@ -37,4 +40,39 @@ void URogueTowerFunctionLibrary::ToggleInputMode(const UObject* WorldContextObje
 	default:
 		break;
 	}
+}
+
+URogueTowerAbilitySystemComponent* URogueTowerFunctionLibrary::NativeGetWrroirASCFromActor(AActor* InActor)
+{
+	check(InActor);
+	return CastChecked<URogueTowerAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
+}
+
+void URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd)
+{
+	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	if (!ASC->HasMatchingGameplayTag(TagToAdd)) 
+	{
+		ASC->AddLooseGameplayTag(TagToAdd); 
+	}
+}
+
+void URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(AActor* InActor, FGameplayTag TagToRemove)
+{
+	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	if (ASC->HasMatchingGameplayTag(TagToRemove))
+	{
+		ASC->RemoveLooseGameplayTag(TagToRemove);
+	}
+}
+
+bool URogueTowerFunctionLibrary::NativeDoseActorHaveTag(AActor* InActor, FGameplayTag TagToCheck)
+{
+	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	return ASC->HasMatchingGameplayTag(TagToCheck);
+}
+
+void URogueTowerFunctionLibrary::BP_DoseActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, ERogueTowerConfirmType& OutConfirmType)
+{
+	OutConfirmType = NativeDoseActorHaveTag(InActor, TagToCheck) ? ERogueTowerConfirmType::Yes : ERogueTowerConfirmType::No;
 }

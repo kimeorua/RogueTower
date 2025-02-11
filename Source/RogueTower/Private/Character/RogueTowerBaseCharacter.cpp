@@ -2,6 +2,8 @@
 
 
 #include "Character/RogueTowerBaseCharacter.h"
+#include "GAS/RogueTowerAbilitySystemComponent.h"
+#include "GAS/RogueTowerAttributeSet.h"
 
 // Sets default values
 ARogueTowerBaseCharacter::ARogueTowerBaseCharacter()
@@ -11,9 +13,27 @@ ARogueTowerBaseCharacter::ARogueTowerBaseCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = false; 
 	
 	GetMesh()->bReceivesDecals = false;
+
+	RogueTowerAbilitySystemComponent = CreateDefaultSubobject<URogueTowerAbilitySystemComponent>(TEXT("WrriorAbilitySystemComponent"));
+	RogueTowerAttributeSet = CreateDefaultSubobject<URogueTowerAttributeSet>(TEXT("WrriorAttributeSet"));
 }
 
 UPawnCombetComponent* ARogueTowerBaseCharacter::GetPawnCombetComponent() const
 {
 	return nullptr;
+}
+
+UAbilitySystemComponent* ARogueTowerBaseCharacter::GetAbilitySystemComponent() const
+{
+	return GetRogueTowerAbilitySystemComponent();
+}
+
+void ARogueTowerBaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (RogueTowerAbilitySystemComponent)
+	{
+		RogueTowerAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
 }

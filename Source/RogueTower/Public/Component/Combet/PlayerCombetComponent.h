@@ -14,4 +14,10 @@ class ROGUETOWER_API UPlayerCombetComponent : public UPawnCombetComponent
 {
 	GENERATED_BODY()
 	
+public:
+	UPlayerCombetComponent();
+
+private:
+	UFUNCTION()
+	virtual void WeaponTagAdd() override;
 };

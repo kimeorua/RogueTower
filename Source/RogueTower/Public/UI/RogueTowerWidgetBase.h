@@ -23,4 +23,3 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Player Combet Component Initalized"))
 	void BP_OnOwningPlayerCombetComponentInitalized(UPlayerCombetComponent* OwningPlayerCombetComponent);
 };
-```

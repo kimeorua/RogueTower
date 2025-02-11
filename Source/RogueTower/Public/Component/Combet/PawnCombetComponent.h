@@ -7,9 +7,11 @@
 #include "RogueTowerTypes/RogueTowerEnums.h"
 #include "PawnCombetComponent.generated.h"
 
-class UDataAsset_WeaponConfig;
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSeletedWeaponDelegate, const UDataAsset_WeaponConfig*, WeaponData);
+
+class UDataAsset_WeaponConfig;
+class ARogueTowerWeapon;
+class ARogueTowerBaseCharacter;
 
 /**
  * 
@@ -25,7 +27,14 @@ public:
 	UPROPERTY(BlueprintCallable)
 	FOnSeletedWeaponDelegate OnSeletedWeaponDelegate;
 
+	virtual void WeaponTagAdd();
+
 private:
 	UFUNCTION()
 	void SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig);
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
+	TMap<ERogueTowerWeaponType, ARogueTowerWeapon*> WeaponMap;
+
 };

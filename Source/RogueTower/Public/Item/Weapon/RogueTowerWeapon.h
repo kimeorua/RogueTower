@@ -6,7 +6,7 @@
 #include "Item/RogueTowerItemBase.h"
 #include "RogueTowerWeapon.generated.h"
 
-class USkeletalMeshComponent;
+class UStaticMeshComponent;
 class UBoxComponent;
 
 /**
@@ -19,7 +19,7 @@ class ROGUETOWER_API ARogueTowerWeapon : public ARogueTowerItemBase
 	
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|Mesh", meta = (AllowPrivateAccess = "true"))
-	USkeletalMeshComponent* WeaponMesh;
+	UStaticMeshComponent* WeaponMesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|Collision", meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* WeaponCollision;

@@ -28,6 +28,10 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	//~ Begin APawn Interface.
+	virtual void PossessedBy(AController* NewController) override;
+	//~ End APawn Interface
+
 	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
 	virtual UPlayerCombetComponent* GetPlayerCombetComponent() const override;
 

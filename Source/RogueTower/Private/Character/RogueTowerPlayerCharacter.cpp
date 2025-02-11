@@ -33,7 +33,7 @@ ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
-	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	GetCharacterMovement()->MaxWalkSpeed = 250.0f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	PlayerCombetComponent = CreateDefaultSubobject<UPlayerCombetComponent>(TEXT("PlayerCombetComponent"));
@@ -59,6 +59,11 @@ void ARogueTowerPlayerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 void ARogueTowerPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ARogueTowerPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
 }
 
 UPawnCombetComponent* ARogueTowerPlayerCharacter::GetPawnCombetComponent() const
