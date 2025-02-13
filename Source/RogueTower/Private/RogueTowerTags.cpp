@@ -13,7 +13,8 @@ namespace RogueTowerTag
 
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Look, "InputTag.Look");
 
-	UE_DEFINE_GAMEPLAY_TAG(InputTag_Dash, "InputTag.Dash");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold_Dash, "InputTag.Hold.Dash");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Jump, "InputTag.Jump");
 
 	/*Player Tag*/
@@ -23,4 +24,10 @@ namespace RogueTowerTag
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Dash, "Player.Ability.Dash");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Jump, "Player.Ability.Jump");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_JumpEnd, "Player.Event.JumpEnd");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Jumpping, "Player.Status.Jumpping");
+
+	/*Shared Tag*/
 }

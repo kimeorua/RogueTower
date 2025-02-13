@@ -24,5 +24,7 @@ void URogueTowerBaseAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSec
 	}
 	GroundSpeed = OwningCharacter->GetVelocity().Size2D();
 	bHasAcceleration = OwningMovementComponent->GetCurrentAcceleration().SizeSquared2D() > 0.0f;
+	bIsJumpping = OwningMovementComponent->IsFalling();
+	SpeedZ = OwningCharacter->GetVelocity().Z;
 	LocomationDirection = UKismetAnimationLibrary::CalculateDirection(OwningCharacter->GetVelocity(), OwningCharacter->GetActorRotation());
 }

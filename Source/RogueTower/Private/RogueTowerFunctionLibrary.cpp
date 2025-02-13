@@ -42,7 +42,7 @@ void URogueTowerFunctionLibrary::ToggleInputMode(const UObject* WorldContextObje
 	}
 }
 
-URogueTowerAbilitySystemComponent* URogueTowerFunctionLibrary::NativeGetWrroirASCFromActor(AActor* InActor)
+URogueTowerAbilitySystemComponent* URogueTowerFunctionLibrary::NativeGetRogueTowerAbilitySystemFromActor(AActor* InActor)
 {
 	check(InActor);
 	return CastChecked<URogueTowerAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(InActor));
@@ -50,7 +50,7 @@ URogueTowerAbilitySystemComponent* URogueTowerFunctionLibrary::NativeGetWrroirAS
 
 void URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd)
 {
-	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	URogueTowerAbilitySystemComponent* ASC = NativeGetRogueTowerAbilitySystemFromActor(InActor);
 	if (!ASC->HasMatchingGameplayTag(TagToAdd)) 
 	{
 		ASC->AddLooseGameplayTag(TagToAdd); 
@@ -59,7 +59,7 @@ void URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(AActor* InActor, FG
 
 void URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(AActor* InActor, FGameplayTag TagToRemove)
 {
-	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	URogueTowerAbilitySystemComponent* ASC = NativeGetRogueTowerAbilitySystemFromActor(InActor);
 	if (ASC->HasMatchingGameplayTag(TagToRemove))
 	{
 		ASC->RemoveLooseGameplayTag(TagToRemove);
@@ -68,7 +68,7 @@ void URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(AActor* InActor,
 
 bool URogueTowerFunctionLibrary::NativeDoseActorHaveTag(AActor* InActor, FGameplayTag TagToCheck)
 {
-	URogueTowerAbilitySystemComponent* ASC = NativeGetWrroirASCFromActor(InActor);
+	URogueTowerAbilitySystemComponent* ASC = NativeGetRogueTowerAbilitySystemFromActor(InActor);
 	return ASC->HasMatchingGameplayTag(TagToCheck);
 }
 

@@ -21,7 +21,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "RogueTower|Function Library", meta = (WorldContext = "WorldContextObject"))
 	static void ToggleInputMode(const UObject* WorldContextObject, ERogueTowerInputMode InInputMode);
 
-	static URogueTowerAbilitySystemComponent* NativeGetWrroirASCFromActor(AActor* InActor);
+	static URogueTowerAbilitySystemComponent* NativeGetRogueTowerAbilitySystemFromActor(AActor* InActor);
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior | Function Library")
 	static void AddGameplayTagToActorIfNone(AActor* InActor, FGameplayTag TagToAdd);

@@ -21,6 +21,11 @@ void URogueTowerAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag
 
 void URogueTowerAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+	if (!InInputTag.IsValid() || !InInputTag.MatchesTag(RogueTowerTag::InputTag_Hold))
+	{
+		return;
+	}
+
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
 		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InInputTag) && AbilitySpec.IsActive())
