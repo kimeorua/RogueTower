@@ -4,6 +4,7 @@
 #include "Character/RogueTowerBaseCharacter.h"
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "GAS/RogueTowerAttributeSet.h"
+#include "DataAsset/StartUp/DataAsset_StartUpBase.h"
 
 // Sets default values
 ARogueTowerBaseCharacter::ARogueTowerBaseCharacter()
@@ -35,5 +36,6 @@ void ARogueTowerBaseCharacter::PossessedBy(AController* NewController)
 	if (RogueTowerAbilitySystemComponent)
 	{
 		RogueTowerAbilitySystemComponent->InitAbilityActorInfo(this, this);
+		ensureMsgf(!(StartUpData.IsNull()), TEXT("Forgot to assign startup data %s"), *GetName());
 	}
 }

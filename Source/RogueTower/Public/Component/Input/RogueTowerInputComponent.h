@@ -21,6 +21,9 @@ public:
 	/// </summary>
 	template<class UserObject, typename CallbackFunc>
 	void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func);
+
+	template<class UserObject, typename CallbackFunc>
+	inline void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputRelasedFunc);
 };
 
 template<class UserObject, typename CallbackFunc>
@@ -31,5 +34,19 @@ inline void URogueTowerInputComponent::BindNativeInputAction(const UDataAsset_In
 	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{
 		BindAction(FoundAction, TriggerEvent, ContextObject, Func);
+	}
+}
+
+template<class UserObject, typename CallbackFunc>
+inline void URogueTowerInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputRelasedFunc)
+{
+	checkf(InInputConfig, TEXT("Input Comfig DataAsset is Null"));
+
+	for (const FRoguTowerInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
+	{
+		if (!AbilityInputActionConfig.IsVaild()) continue;
+
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started, ContextObject, InputPressedFunc, AbilityInputActionConfig.InputTag);
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed, ContextObject, InputRelasedFunc, AbilityInputActionConfig.InputTag);
 	}
 }

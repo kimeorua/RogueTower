@@ -12,6 +12,8 @@
 #include "RogueTowerTags.h"
 #include "Engine/LocalPlayer.h"
 #include "Component/Combet/PlayerCombetComponent.h"
+#include "GAS/RogueTowerAbilitySystemComponent.h"
+#include "DataAsset/StartUp/DataAsset_StartUpBase.h"
 
 ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 {
@@ -52,8 +54,13 @@ void ARogueTowerPlayerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 
 	URogueTowerInputComponent* RogueTowerInputComponen = CastChecked<URogueTowerInputComponent>(PlayerInputComponent);
 
-	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Forward, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Forward);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Back, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Back);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Left, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Left);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Right, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Right);
 	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+
+	RogueTowerInputComponen->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void ARogueTowerPlayerCharacter::BeginPlay()
@@ -64,6 +71,15 @@ void ARogueTowerPlayerCharacter::BeginPlay()
 void ARogueTowerPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	if (!StartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpBase* LoadData = StartUpData.LoadSynchronous())
+		{
+			LoadData->GiveToAbilitySystemComponent(RogueTowerAbilitySystemComponent);
+		}
+
+	}
 }
 
 UPawnCombetComponent* ARogueTowerPlayerCharacter::GetPawnCombetComponent() const
@@ -76,24 +92,32 @@ UPlayerCombetComponent* ARogueTowerPlayerCharacter::GetPlayerCombetComponent() c
 	return PlayerCombetComponent;
 }
 
-void ARogueTowerPlayerCharacter::Input_Move(const FInputActionValue& InputActionValue)
+void ARogueTowerPlayerCharacter::Input_Move_Forward()
 {
-	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::ForwardVector);
+	AddMovementInput(ForwardDirection, 1.0f);
+}
 
-	if (MovementVector.Y != 0.0f)
-	{
-		const FVector ForwardDirection = MovementRotator.RotateVector(FVector::ForwardVector);
+void ARogueTowerPlayerCharacter::Input_Move_Back()
+{
+	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::ForwardVector);
+	AddMovementInput(ForwardDirection, -1.0f);
+}
 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-	}
+void ARogueTowerPlayerCharacter::Input_Move_Left()
+{
+	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::RightVector);
+	AddMovementInput(ForwardDirection, -1.0f);
+}
 
-	if (MovementVector.X != 0.0f)
-	{
-		const FVector RightDirection = MovementRotator.RotateVector(FVector::RightVector);
-
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
+void ARogueTowerPlayerCharacter::Input_Move_Right()
+{
+	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::RightVector);
+	AddMovementInput(ForwardDirection, 1.0f);
 }
 
 void ARogueTowerPlayerCharacter::Input_Look(const FInputActionValue& InputActionValue)
@@ -108,4 +132,14 @@ void ARogueTowerPlayerCharacter::Input_Look(const FInputActionValue& InputAction
 	{
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ARogueTowerPlayerCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	RogueTowerAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void ARogueTowerPlayerCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	RogueTowerAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

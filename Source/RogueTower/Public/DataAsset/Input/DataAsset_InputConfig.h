@@ -44,6 +44,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FRoguTowerInputActionConfig> NativeInputActions;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FRoguTowerInputActionConfig> AbilityInputActions;
+
 	UInputAction* FindNativeInputActionByTag(const FGameplayTag& InputTag) const;
 
 };

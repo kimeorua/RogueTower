@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/RogueTowerBaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "RogueTowerPlayerCharacter.generated.h"
 
 class USpringArmComponent;
@@ -23,6 +24,11 @@ class ROGUETOWER_API ARogueTowerPlayerCharacter : public ARogueTowerBaseCharacte
 public:
 	ARogueTowerPlayerCharacter();
 
+	// ~Begin IPawnCombetInterface
+	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
+	virtual UPlayerCombetComponent* GetPlayerCombetComponent() const override;
+	// ~End IPawnCombetInterface
+
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -31,9 +37,6 @@ protected:
 	//~ Begin APawn Interface.
 	virtual void PossessedBy(AController* NewController) override;
 	//~ End APawn Interface
-
-	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
-	virtual UPlayerCombetComponent* GetPlayerCombetComponent() const override;
 
 private:
 #pragma region Components
@@ -48,8 +51,15 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* InputConfigDataAsset;
 
-	void Input_Move(const FInputActionValue& InputActionValue);
+	void Input_Move_Forward();
+	void Input_Move_Back();
+	void Input_Move_Left();
+	void Input_Move_Right();
+
 	void Input_Look(const FInputActionValue& InputActionValue);
+
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 
 #pragma endregion
 

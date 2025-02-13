@@ -10,6 +10,7 @@
 
 class URogueTowerAbilitySystemComponent;
 class URogueTowerAttributeSet;
+class UDataAsset_StartUpBase;
 
 UCLASS()
 class ROGUETOWER_API ARogueTowerBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombetInterface
@@ -38,6 +39,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
 	URogueTowerAttributeSet* RogueTowerAttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Character Data")
+	TSoftObjectPtr<UDataAsset_StartUpBase> StartUpData;
 
 public:
 	FORCEINLINE URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponent() const { return RogueTowerAbilitySystemComponent; }
