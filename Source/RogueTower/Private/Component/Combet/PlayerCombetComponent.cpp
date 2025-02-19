@@ -14,6 +14,30 @@ UPlayerCombetComponent::UPlayerCombetComponent()
 	OnSeletedWeaponDelegate.AddDynamic(this, &ThisClass::SpawnAndAttachWeapon);
 }
 
+ARogueTowerWeapon* UPlayerCombetComponent::GetWeapon(bool IsLeft) const
+{
+	if (WeaponMap.Contains(ERogueTowerWeaponType::TwoHanded))
+	{
+		return WeaponMap.FindRef(ERogueTowerWeaponType::TwoHanded);
+	}
+	else if (WeaponMap.Contains(ERogueTowerWeaponType::Duall_L) || WeaponMap.Contains(ERogueTowerWeaponType::Duall_R))
+	{
+		if (IsLeft)
+		{
+			return WeaponMap.FindRef(ERogueTowerWeaponType::Duall_L);
+		}
+		else
+		{
+			return WeaponMap.FindRef(ERogueTowerWeaponType::Duall_R);
+		}
+	}
+	else if (WeaponMap.Contains(ERogueTowerWeaponType::Katana) || WeaponMap.Contains(ERogueTowerWeaponType::Katana_Sheath))
+	{
+		return WeaponMap.FindRef(ERogueTowerWeaponType::Katana);
+	}
+	return nullptr;
+}
+
 void UPlayerCombetComponent::WeaponTagAdd()
 {
 	ARogueTowerPlayerCharacter* OwnerCharacter = Cast<ARogueTowerPlayerCharacter>(GetOwner());
@@ -62,7 +86,6 @@ void UPlayerCombetComponent::SpawnAndAttachWeapon(const UDataAsset_WeaponConfig*
 			WeaponMap.Add(WeaponClassData.WeaponType, SpawnedWeapon);
 
 			SpawnedWeapon->AttachToComponent(OwnerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponClassData.WeaponAttachmentSocketName);
-			//Cast<URogueTowerAbilitySystemComponent>(OwnerCharacter->GetAbilitySystemComponent())->GrantHeroWeaponAbilities(SpawnedWeapon->WeaponData.WeaponAbility, 1);
 		}
 	}
 	if (IsValid(WeaponDataConfig->WeaponAnimBP))

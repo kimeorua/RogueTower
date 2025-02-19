@@ -26,6 +26,10 @@ public:
 	UPROPERTY(BlueprintCallable)
 	FOnSeletedWeaponDelegate OnSeletedWeaponDelegate;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	ARogueTowerWeapon* GetWeapon(bool IsLeft = true) const;
+
 private:
 	UFUNCTION()
 	void WeaponTagAdd();
