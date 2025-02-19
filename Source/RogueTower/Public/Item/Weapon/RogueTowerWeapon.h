@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Item/RogueTowerItemBase.h"
+#include "RogueTowerTypes/RogueTowerStructTypes.h"
 #include "RogueTowerWeapon.generated.h"
 
 class UStaticMeshComponent;
@@ -26,4 +27,7 @@ private:
 
 public:
 	ARogueTowerWeapon();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon Data")
+	FRogueTowerWeaponData WeaponData;
 };

@@ -6,6 +6,12 @@
 #include "Component/Combet/PawnCombetComponent.h"
 #include "PlayerCombetComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSeletedWeaponDelegate, const UDataAsset_WeaponConfig*, WeaponData);
+
+class UDataAsset_WeaponConfig;
+class ARogueTowerWeapon;
+class ARogueTowerBaseCharacter;
+
 /**
  * 
  */
@@ -17,7 +23,17 @@ class ROGUETOWER_API UPlayerCombetComponent : public UPawnCombetComponent
 public:
 	UPlayerCombetComponent();
 
+	UPROPERTY(BlueprintCallable)
+	FOnSeletedWeaponDelegate OnSeletedWeaponDelegate;
+
 private:
 	UFUNCTION()
-	virtual void WeaponTagAdd() override;
+	void WeaponTagAdd();
+
+	UFUNCTION()
+	void SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig);
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
+	TMap<ERogueTowerWeaponType, ARogueTowerWeapon*> WeaponMap;
 };

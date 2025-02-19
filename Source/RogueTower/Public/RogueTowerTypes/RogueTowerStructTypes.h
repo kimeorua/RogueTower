@@ -5,6 +5,7 @@
 #include "RogueTowerStructTypes.generated.h"
 
 class URogueTowerPlayerGameplayAbility;
+class UInputMappingContext;
 
 USTRUCT(BlueprintType)
 struct FPlayerAbilitySet
@@ -18,4 +19,16 @@ struct FPlayerAbilitySet
 	TSubclassOf<URogueTowerPlayerGameplayAbility> AbilityToGrant;
 
 	bool IsVaild()const;
+};
+
+USTRUCT(BlueprintType)
+struct FRogueTowerWeaponData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UInputMappingContext* WeaponInputMappingContext = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FPlayerAbilitySet>WeaponAbility;
 };

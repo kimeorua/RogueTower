@@ -11,6 +11,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UDataAsset_InputConfig;
 class UPlayerCombetComponent;
+class UInputMappingContext;
 
 struct FInputActionValue;
 /**
@@ -28,6 +29,8 @@ public:
 	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
 	virtual UPlayerCombetComponent* GetPlayerCombetComponent() const override;
 	// ~End IPawnCombetInterface
+
+	void AddInputContext(UInputMappingContext* WeaponInputContext);
 
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

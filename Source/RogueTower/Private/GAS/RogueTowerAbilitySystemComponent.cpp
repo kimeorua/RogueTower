@@ -5,6 +5,8 @@
 #include "RogueTowerTags.h"
 #include "GAS/Ability/RogueTowerPlayerGameplayAbility.h"
 
+#include "DebugHelper.h"
+
 void URogueTowerAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {
 	if (!InInputTag.IsValid())
@@ -33,6 +35,27 @@ void URogueTowerAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTa
 			CancelAbilityHandle(AbilitySpec.Handle);
 		}
 	}
+}
+
+void URogueTowerAbilitySystemComponent::GrantHeroWeaponAbilities(const TArray<FPlayerAbilitySet>& InDefaultAbilities, int32 ApplyLevel)
+{
+	if (InDefaultAbilities.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FPlayerAbilitySet& AbilitySet : InDefaultAbilities)
+	{
+		if (!AbilitySet.IsVaild()) continue;
+
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
+		AbilitySpec.SourceObject = GetAvatarActor();
+		AbilitySpec.Level = ApplyLevel;
+		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+
+		GiveAbility(AbilitySpec);
+	}
+
 }
 
 bool URogueTowerAbilitySystemComponent::TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate)

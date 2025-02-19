@@ -9,6 +9,7 @@
 #include "DataAsset_WeaponConfig.generated.h"
 
 class ARogueTowerWeapon;
+class URogueTowerBaseAnimInstance;
 
 USTRUCT(BlueprintType)
 struct FWeaponData
@@ -42,4 +43,7 @@ class ROGUETOWER_API UDataAsset_WeaponConfig : public UDataAsset
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TArray<FWeaponData> WeaponDatas;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UAnimInstance> WeaponAnimBP;
 };

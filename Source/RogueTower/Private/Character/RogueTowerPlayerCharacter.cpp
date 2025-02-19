@@ -78,7 +78,6 @@ void ARogueTowerPlayerCharacter::PossessedBy(AController* NewController)
 		{
 			LoadData->GiveToAbilitySystemComponent(RogueTowerAbilitySystemComponent);
 		}
-
 	}
 }
 
@@ -90,6 +89,16 @@ UPawnCombetComponent* ARogueTowerPlayerCharacter::GetPawnCombetComponent() const
 UPlayerCombetComponent* ARogueTowerPlayerCharacter::GetPlayerCombetComponent() const
 {
 	return PlayerCombetComponent;
+}
+
+void ARogueTowerPlayerCharacter::AddInputContext(UInputMappingContext* WeaponInputContext)
+{
+	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
+	UEnhancedInputLocalPlayerSubsystem* SubSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+
+	check(SubSystem);
+
+	SubSystem->AddMappingContext(WeaponInputContext, 1);
 }
 
 void ARogueTowerPlayerCharacter::Input_Move_Forward()
