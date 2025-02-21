@@ -16,7 +16,8 @@ public class RogueTower : ModuleRules
 			"EnhancedInput",
 			"GameplayTags",
             "GameplayTasks",
-            "AnimGraphRuntime"});
+            "AnimGraphRuntime",
+            "AIModule", });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
