@@ -27,4 +27,33 @@ public:
 	URogueTowerAttributeSet();
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)override;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "HP")
+	FGameplayAttributeData CurrentHP;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, CurrentHP)
+
+	UPROPERTY(BlueprintReadOnly, Category = "HP")
+	FGameplayAttributeData MaxHP;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, MaxHP)
+
+	UPROPERTY(BlueprintReadOnly, Category = "SP")
+	FGameplayAttributeData CurrentSP;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, CurrentSP)
+
+	UPROPERTY(BlueprintReadOnly, Category = "SP")
+	FGameplayAttributeData MaxSP;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, MaxSP)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData ATK;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, ATK)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData DEF;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, DEF)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData ATTSPD;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, ATTSPD)
+
+private:
 };

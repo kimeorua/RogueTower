@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSeletedWeaponDelegate, const UDataAsset_WeaponConfig*, WeaponData);
 
 class UDataAsset_WeaponConfig;
-class ARogueTowerWeapon;
+class ARogueTowerPlayerWeapon;
 class ARogueTowerBaseCharacter;
 
 /**
@@ -28,7 +28,7 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	ARogueTowerWeapon* GetWeapon(bool IsLeft = true) const;
+	ARogueTowerPlayerWeapon* GetWeapon(bool IsLeft = true) const;
 
 private:
 	UFUNCTION()
@@ -37,7 +37,10 @@ private:
 	UFUNCTION()
 	void SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig);
 
+	UFUNCTION()
+	void ApplayStartUpEffect(URogueTowerAbilitySystemComponent* ASC, ARogueTowerPlayerWeapon* Weapon);
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
-	TMap<ERogueTowerWeaponType, ARogueTowerWeapon*> WeaponMap;
+	TMap<ERogueTowerWeaponType, ARogueTowerPlayerWeapon*> WeaponMap;
 };

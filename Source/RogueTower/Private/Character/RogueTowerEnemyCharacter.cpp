@@ -4,6 +4,7 @@
 #include "Character/RogueTowerEnemyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Component/Combet/EnemyCombetComponent.h"
+#include "DataAsset/StartUp/DataAsset_StartUpBase.h"
 
 ARogueTowerEnemyCharacter::ARogueTowerEnemyCharacter()
 {
@@ -35,4 +36,12 @@ void ARogueTowerEnemyCharacter::BeginPlay()
 void ARogueTowerEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	if (!StartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpBase* LoadData = StartUpData.LoadSynchronous())
+		{
+			LoadData->GiveToAbilitySystemComponent(RogueTowerAbilitySystemComponent);
+		}
+	}
 }

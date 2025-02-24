@@ -36,7 +36,7 @@ UPawnCombetComponent* URogueTowerGameplayAbility::GetPawnCombetComponentFromActo
 	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombetComponent>();
 }
 
-URogueTowerAbilitySystemComponent* URogueTowerGameplayAbility::GetWrriorAbilitySystemComponentFromActorInfo() const
+URogueTowerAbilitySystemComponent* URogueTowerGameplayAbility::GetRogueTowerAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<URogueTowerAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

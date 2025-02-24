@@ -5,10 +5,10 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "RogueTowerTypes/RogueTowerEnums.h"
-#include "Item/Weapon/RogueTowerWeapon.h"
+#include "Item/Weapon/RogueTowerPlayerWeapon.h"
 #include "DataAsset_WeaponConfig.generated.h"
 
-class ARogueTowerWeapon;
+class ARogueTowerPlayerWeapon;
 class URogueTowerBaseAnimInstance;
 
 USTRUCT(BlueprintType)
@@ -18,7 +18,7 @@ struct FWeaponData
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<ARogueTowerWeapon>WeaponClass;
+	TSubclassOf<ARogueTowerPlayerWeapon>WeaponClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FName WeaponAttachmentSocketName;

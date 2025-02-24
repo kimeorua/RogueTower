@@ -35,6 +35,6 @@ protected:
 	UPawnCombetComponent* GetPawnCombetComponentFromActorInfo()const;
 
 	UFUNCTION(BlueprintPure, Category = "Rogue Tower Ability")
-	URogueTowerAbilitySystemComponent* GetWrriorAbilitySystemComponentFromActorInfo() const;
+	URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponentFromActorInfo() const;
 	
 };

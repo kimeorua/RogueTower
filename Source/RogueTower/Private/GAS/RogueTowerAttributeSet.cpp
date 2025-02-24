@@ -5,7 +5,15 @@
 
 URogueTowerAttributeSet::URogueTowerAttributeSet()
 {
-	//TODO : Attribute 값 초기화 실시
+	InitCurrentHP(1.0f);
+	InitMaxHP(1.0f);
+
+	InitCurrentSP(1.0f);
+	InitMaxSP(1.0f);
+
+	InitATK(1.0f);
+	InitDEF(1.0f);
+	InitATTSPD(1.0f);
 }
 
 void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)

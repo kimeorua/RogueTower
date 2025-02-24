@@ -6,6 +6,7 @@
 
 class URogueTowerPlayerGameplayAbility;
 class UInputMappingContext;
+class UGameplayEffect;
 
 USTRUCT(BlueprintType)
 struct FPlayerAbilitySet
@@ -24,11 +25,14 @@ struct FPlayerAbilitySet
 USTRUCT(BlueprintType)
 struct FRogueTowerWeaponData
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* WeaponInputMappingContext = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
 	TArray<FPlayerAbilitySet>WeaponAbility;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
+	TArray<TSubclassOf<UGameplayEffect>>StartUpGameplayEffects;
 };
