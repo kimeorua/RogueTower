@@ -2,13 +2,13 @@
 
 
 #include "AnimInstance/RogueTowerBaseAnimInstance.h"
-#include "Character/RogueTowerPlayerCharacter.h"
+#include "Character/RogueTowerBaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "KismetAnimationLibrary.h"
 
 void URogueTowerBaseAnimInstance::NativeInitializeAnimation()
 {
-	OwningCharacter = Cast<ARogueTowerPlayerCharacter>(TryGetPawnOwner());
+	OwningCharacter = Cast<ARogueTowerBaseCharacter>(TryGetPawnOwner());
 
 	if (OwningCharacter)
 	{

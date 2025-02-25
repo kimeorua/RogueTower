@@ -3,11 +3,14 @@
 
 #include "AnimInstance/PlayerAnimInstance.h"
 #include "RogueTowerFunctionLibrary.h"
+#include "Character/RogueTowerPlayerCharacter.h"
 #include "RogueTowerTags.h"
 
 void UPlayerAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
+
+	OwningCharacter = Cast<ARogueTowerPlayerCharacter>(TryGetPawnOwner());
 }
 
 void UPlayerAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
