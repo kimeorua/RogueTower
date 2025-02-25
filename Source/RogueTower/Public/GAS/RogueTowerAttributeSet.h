@@ -8,6 +8,8 @@
 #include "RogueTowerAttributeSet.generated.h"
 
 
+class IPawnUIInterface;
+
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -56,4 +58,5 @@ public:
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, ATTSPD)
 
 private:
+	TWeakInterfacePtr<IPawnUIInterface> ChacedPawnUIInterface;
 };

@@ -14,6 +14,7 @@
 #include "Component/Combet/PlayerCombetComponent.h"
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "DataAsset/StartUp/DataAsset_StartUpBase.h"
+#include "Component/UI/PlayerUIComponent.h"
 
 ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 {
@@ -39,6 +40,7 @@ ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	PlayerCombetComponent = CreateDefaultSubobject<UPlayerCombetComponent>(TEXT("PlayerCombetComponent"));
+	PlayerUIComponent = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUIComponent"));
 }
 
 void ARogueTowerPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -89,6 +91,16 @@ UPawnCombetComponent* ARogueTowerPlayerCharacter::GetPawnCombetComponent() const
 UPlayerCombetComponent* ARogueTowerPlayerCharacter::GetPlayerCombetComponent() const
 {
 	return PlayerCombetComponent;
+}
+
+UPawnUIComponent* ARogueTowerPlayerCharacter::GetPawnUIComponent() const
+{
+	return PlayerUIComponent;
+}
+
+UPlayerUIComponent* ARogueTowerPlayerCharacter::GetPlayerUIComponent() const
+{
+	return PlayerUIComponent;
 }
 
 void ARogueTowerPlayerCharacter::AddInputContext(UInputMappingContext* WeaponInputContext)

@@ -12,6 +12,7 @@ class UCameraComponent;
 class UDataAsset_InputConfig;
 class UPlayerCombetComponent;
 class UInputMappingContext;
+class UPlayerUIComponent;
 
 struct FInputActionValue;
 /**
@@ -29,6 +30,11 @@ public:
 	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
 	virtual UPlayerCombetComponent* GetPlayerCombetComponent() const override;
 	// ~End IPawnCombetInterface
+
+	// ~Begin IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UPlayerUIComponent* GetPlayerUIComponent() const override;
+	// ~End IPawnUIInterface
 
 	void AddInputContext(UInputMappingContext* WeaponInputContext);
 
@@ -48,6 +54,13 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FllowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combet", meta = (AllowPrivateAccess = "true"))
+	UPlayerCombetComponent* PlayerCombetComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+	UPlayerUIComponent* PlayerUIComponent;
+
 #pragma endregion
 
 #pragma region Inputs
@@ -66,7 +79,4 @@ private:
 
 #pragma endregion
 
-#pragma region Combets
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combet", meta = (AllowPrivateAccess = "true"))
-	UPlayerCombetComponent* PlayerCombetComponent;
 };

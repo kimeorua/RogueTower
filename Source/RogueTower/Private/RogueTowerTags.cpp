@@ -31,6 +31,7 @@ namespace RogueTowerTag
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_ComboAttack_2, "Player.Ability.ComboAttack.2");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_ComboAttack_3, "Player.Ability.ComboAttack.3");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_ComboAttack_4, "Player.Ability.ComboAttack.4");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_DrawUI, "Player.Ability.DrawUI");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_JumpEnd, "Player.Event.JumpEnd");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindowOpen, "Player.Event.ComboWindowOpen");

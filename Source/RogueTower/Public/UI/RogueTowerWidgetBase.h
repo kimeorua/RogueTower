@@ -7,7 +7,8 @@
 #include "RogueTowerWidgetBase.generated.h"
 
 class UPlayerCombetComponent;
-
+class UPlayerUIComponent;
+class UEnemyUIComponent;
 /**
  * 
  */
@@ -22,4 +23,15 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Player Combet Component Initalized"))
 	void BP_OnOwningPlayerCombetComponentInitalized(UPlayerCombetComponent* OwningPlayerCombetComponent);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Player UI Component Initalized"))
+	void BP_OnOwningPlayerUIComponentInitalized(UPlayerUIComponent* OwningPlayerUIComponent);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Enemy UI Component Initalized"))
+	void BP_OnOwningEnemyUIComponentInitalized(UEnemyUIComponent* OwningEnemyUIComponent);
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void InitEnemyCharacterWidget(AActor* OwningEnemyActor);
+
 };

@@ -7,6 +7,7 @@
 #include "RogueTowerEnemyCharacter.generated.h"
 
 class UEnemyCombetComponent;
+class UEnemyUIComponent;
 
 /**
  * 
@@ -19,7 +20,14 @@ class ROGUETOWER_API ARogueTowerEnemyCharacter : public ARogueTowerBaseCharacter
 public:
 	ARogueTowerEnemyCharacter();
 
+	// ~Begin IPawnCombetInterface
 	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
+	// ~End IPawnCombetInterface
+
+	// ~Begin IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
+	// ~End IPawnUIInterface
 
 protected:
 	virtual void BeginPlay() override;
@@ -30,6 +38,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combet")
 	UEnemyCombetComponent* EnemyCombetComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UEnemyUIComponent* EnemyUIComponent;
 
 public:
 	FORCEINLINE UEnemyCombetComponent* GetEnemyCombetComponent() const { return EnemyCombetComponent; }

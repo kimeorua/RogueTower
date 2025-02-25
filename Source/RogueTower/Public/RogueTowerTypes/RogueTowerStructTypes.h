@@ -35,4 +35,7 @@ struct FRogueTowerWeaponData
 
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
 	TArray<TSubclassOf<UGameplayEffect>>StartUpGameplayEffects;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon Icon")
+	TSoftObjectPtr<UTexture2D> WeaponIcon;
 };

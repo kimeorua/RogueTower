@@ -29,6 +29,11 @@ UAbilitySystemComponent* ARogueTowerBaseCharacter::GetAbilitySystemComponent() c
 	return GetRogueTowerAbilitySystemComponent();
 }
 
+UPawnUIComponent* ARogueTowerBaseCharacter::GetPawnUIComponent() const
+{
+	return nullptr;
+}
+
 void ARogueTowerBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

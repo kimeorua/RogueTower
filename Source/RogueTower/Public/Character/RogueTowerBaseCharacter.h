@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Interface/PawnCombetInterface.h"
 #include "AbilitySystemInterface.h"
+#include "Interface/PawnUIInterface.h"
 #include "RogueTowerBaseCharacter.generated.h"
 
 class URogueTowerAbilitySystemComponent;
@@ -13,7 +14,7 @@ class URogueTowerAttributeSet;
 class UDataAsset_StartUpBase;
 
 UCLASS()
-class ROGUETOWER_API ARogueTowerBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombetInterface
+class ROGUETOWER_API ARogueTowerBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombetInterface, public IPawnUIInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,10 @@ public:
 	// ~Begin IAbilitySystemInterface
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	// ~End IAbilitySystemInterface
+
+	// ~Begin IPawnUIInterface
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	// ~End IPawnUIInterface
 
 protected:
 	//~ Begin APawn Interface.

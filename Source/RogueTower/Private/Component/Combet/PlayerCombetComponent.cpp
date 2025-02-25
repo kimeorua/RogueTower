@@ -8,6 +8,9 @@
 #include "Character/RogueTowerPlayerCharacter.h"
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "Item/Weapon/RogueTowerPlayerWeapon.h"
+#include "Component/UI/PlayerUIComponent.h"
+
+#include "DebugHelper.h"
 
 UPlayerCombetComponent::UPlayerCombetComponent()
 {
@@ -36,6 +39,30 @@ ARogueTowerPlayerWeapon* UPlayerCombetComponent::GetWeapon(bool IsLeft) const
 		return WeaponMap.FindRef(ERogueTowerWeaponType::Katana);
 	}
 	return nullptr;
+}
+
+void UPlayerCombetComponent::SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig)
+{
+	ARogueTowerPlayerCharacter* OwnerCharacter = Cast<ARogueTowerPlayerCharacter>(GetOwner());
+
+	if (!OwnerCharacter) { return; }
+
+	for (const FWeaponData& WeaponClassData : WeaponDataConfig->WeaponDatas)
+	{
+		if (WeaponClassData.IsValud())
+		{
+			ARogueTowerPlayerWeapon* SpawnedWeapon = GetWorld()->SpawnActor<ARogueTowerPlayerWeapon>(WeaponClassData.WeaponClass);
+			WeaponMap.Add(WeaponClassData.WeaponType, SpawnedWeapon);
+
+			SpawnedWeapon->AttachToComponent(OwnerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponClassData.WeaponAttachmentSocketName);
+			SpawnedWeapon->SetOwner(OwnerCharacter);
+		}
+	}
+	if (IsValid(WeaponDataConfig->WeaponAnimBP))
+	{
+		OwnerCharacter->GetMesh()->LinkAnimClassLayers(WeaponDataConfig->WeaponAnimBP);
+	}
+	WeaponTagAdd();
 }
 
 void UPlayerCombetComponent::WeaponTagAdd()
@@ -74,32 +101,14 @@ void UPlayerCombetComponent::WeaponTagAdd()
 
 	if (ASC && Weapon)
 	{
+		ASC->TryActivateAbilityByTag(RogueTowerTag::Player_Ability_DrawUI);
+
+		if (Weapon->WeaponData.WeaponIcon)
+		{
+			OwnerCharacter->GetPlayerUIComponent()->OnWeaponIconChanged.Broadcast(Weapon->WeaponData.WeaponIcon);
+		}
 		ApplayStartUpEffect(ASC, Weapon);
 	}
-}
-
-void UPlayerCombetComponent::SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig)
-{
-	ARogueTowerPlayerCharacter* OwnerCharacter = Cast<ARogueTowerPlayerCharacter>(GetOwner());
-
-	if (!OwnerCharacter) { return; }
-
-	for (const FWeaponData& WeaponClassData : WeaponDataConfig->WeaponDatas)
-	{
-		if (WeaponClassData.IsValud())
-		{
-			ARogueTowerPlayerWeapon* SpawnedWeapon = GetWorld()->SpawnActor<ARogueTowerPlayerWeapon>(WeaponClassData.WeaponClass);
-			WeaponMap.Add(WeaponClassData.WeaponType, SpawnedWeapon);
-
-			SpawnedWeapon->AttachToComponent(OwnerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponClassData.WeaponAttachmentSocketName);
-			SpawnedWeapon->SetOwner(OwnerCharacter);
-		}
-	}
-	if (IsValid(WeaponDataConfig->WeaponAnimBP))
-	{
-		OwnerCharacter->GetMesh()->LinkAnimClassLayers(WeaponDataConfig->WeaponAnimBP);
-	}
-	WeaponTagAdd();
 }
 
 void UPlayerCombetComponent::ApplayStartUpEffect(URogueTowerAbilitySystemComponent* ASC, ARogueTowerPlayerWeapon* Weapon)

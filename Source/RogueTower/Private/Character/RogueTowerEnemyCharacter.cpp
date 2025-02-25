@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Component/Combet/EnemyCombetComponent.h"
 #include "DataAsset/StartUp/DataAsset_StartUpBase.h"
+#include "Component/UI/EnemyUIComponent.h"
 
 ARogueTowerEnemyCharacter::ARogueTowerEnemyCharacter()
 {
@@ -21,11 +22,23 @@ ARogueTowerEnemyCharacter::ARogueTowerEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.0f;
 
 	EnemyCombetComponent = CreateDefaultSubobject<UEnemyCombetComponent>(TEXT("EnemyCombetComponent"));
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
+
 }
 
 UPawnCombetComponent* ARogueTowerEnemyCharacter::GetPawnCombetComponent() const
 {
 	return EnemyCombetComponent;
+}
+
+UPawnUIComponent* ARogueTowerEnemyCharacter::GetPawnUIComponent() const
+{
+	return EnemyUIComponent;
+}
+
+UEnemyUIComponent* ARogueTowerEnemyCharacter::GetEnemyUIComponent() const
+{
+	return EnemyUIComponent;
 }
 
 void ARogueTowerEnemyCharacter::BeginPlay()
