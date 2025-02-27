@@ -41,4 +41,5 @@ namespace RogueTowerTag
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_ReadyNextCombo, "Player.Status.ReadyNextCombo");
 
 	/*Shared Tag*/
+	UE_DEFINE_GAMEPLAY_TAG(Shared_Event_MeleeHit, "Shared.Event.MeleeHit")
 }

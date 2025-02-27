@@ -41,6 +41,37 @@ ARogueTowerPlayerWeapon* UPlayerCombetComponent::GetWeapon(bool IsLeft) const
 	return nullptr;
 }
 
+void UPlayerCombetComponent::CollisionOnOff(const ERogueTowerCombetCollisionType Type, bool Activate)
+{
+	ARogueTowerPlayerWeapon* CurrentWeapon = nullptr;
+
+	switch (Type)
+	{
+	case ERogueTowerCombetCollisionType::WeaponLeft:
+		CurrentWeapon = GetWeapon(true);
+		break;
+
+	case ERogueTowerCombetCollisionType::WeaponRight:
+		CurrentWeapon = GetWeapon(false);
+		break;
+
+	default:
+		break;
+	}
+
+	if (!CurrentWeapon) { return; }
+
+	if (Activate)
+	{
+		CurrentWeapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	}
+	else
+	{
+		CurrentWeapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		OverlapedActors.Empty();
+	}
+}
+
 void UPlayerCombetComponent::SpawnAndAttachWeapon(const UDataAsset_WeaponConfig* WeaponDataConfig)
 {
 	ARogueTowerPlayerCharacter* OwnerCharacter = Cast<ARogueTowerPlayerCharacter>(GetOwner());
@@ -56,6 +87,8 @@ void UPlayerCombetComponent::SpawnAndAttachWeapon(const UDataAsset_WeaponConfig*
 
 			SpawnedWeapon->AttachToComponent(OwnerCharacter->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponClassData.WeaponAttachmentSocketName);
 			SpawnedWeapon->SetOwner(OwnerCharacter);
+
+			SpawnedWeapon->OnWeaponHitTarget.BindUObject(this, &ThisClass::OnHitTargetActor);
 		}
 	}
 	if (IsValid(WeaponDataConfig->WeaponAnimBP))

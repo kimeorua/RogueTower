@@ -4,6 +4,7 @@
 #include "RogueTowerFunctionLibrary.h"
 #include "Engine/Engine.h"
 #include "GAS/RogueTowerAbilitySystemComponent.h"
+#include "Interface/PawnCombetInterface.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "RogueTowerTags.h"
 
@@ -75,4 +76,21 @@ bool URogueTowerFunctionLibrary::NativeDoseActorHaveTag(AActor* InActor, FGamepl
 void URogueTowerFunctionLibrary::BP_DoseActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, ERogueTowerConfirmType& OutConfirmType)
 {
 	OutConfirmType = NativeDoseActorHaveTag(InActor, TagToCheck) ? ERogueTowerConfirmType::Yes : ERogueTowerConfirmType::No;
+}
+
+UPawnCombetComponent* URogueTowerFunctionLibrary::NativeGetPawnCombetComponentFromActor(AActor* InActor)
+{
+	check(InActor);
+	if (IPawnCombetInterface* PawnCombetInterface = Cast<IPawnCombetInterface>(InActor))
+	{
+		return PawnCombetInterface->GetPawnCombetComponent();
+	}
+	return nullptr;
+}
+
+UPawnCombetComponent* URogueTowerFunctionLibrary::BP_GetPawnCombetComponentFromActor(AActor* InActor, ERogueTowerVaildType& OutVaildType)
+{
+	UPawnCombetComponent* CombetComponent = NativeGetPawnCombetComponentFromActor(InActor);
+	OutVaildType = CombetComponent ? ERogueTowerVaildType::Vaild : ERogueTowerVaildType::Invaild;
+	return CombetComponent;
 }

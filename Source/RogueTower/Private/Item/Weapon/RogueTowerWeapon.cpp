@@ -13,4 +13,19 @@ ARogueTowerWeapon::ARogueTowerWeapon()
 	WeaponCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("WeaponCollision"));
 	WeaponCollision->SetupAttachment(GetRootComponent());
 	WeaponCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	WeaponCollision->OnComponentBeginOverlap.AddUniqueDynamic(this, &ThisClass::OnCollisionBoxBegineOverlap);
+}
+
+void ARogueTowerWeapon::OnCollisionBoxBegineOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	APawn* WeaponOwningPawn = Cast<APawn>(GetOwner());
+
+	if (APawn* HitPawn = Cast<APawn>(OtherActor))
+	{
+		if (WeaponOwningPawn != HitPawn)
+		{
+			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
+		}
+	}
 }

@@ -39,6 +39,6 @@ namespace RogueTowerTag
 	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Player_Status_ReadyNextCombo);
 
 	/*Shared Tag*/
-
+	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_MeleeHit)
 }
 

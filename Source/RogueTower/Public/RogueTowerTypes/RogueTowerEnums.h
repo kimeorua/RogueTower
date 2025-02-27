@@ -35,3 +35,19 @@ enum class ERogueTowerEquipedWeaponMode : uint8
 	DuallBlade,
 	Katana
 };
+
+UENUM()
+enum class ERogueTowerVaildType : uint8
+{
+	Vaild,
+	Invaild
+};
+
+UENUM(BlueprintType)
+enum class ERogueTowerCombetCollisionType : uint8
+{
+	WeaponLeft,
+	WeaponRight,
+	HandLeft,
+	HandRight
+};

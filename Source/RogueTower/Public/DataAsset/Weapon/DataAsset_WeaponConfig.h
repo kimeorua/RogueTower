@@ -24,7 +24,7 @@ public:
 	FName WeaponAttachmentSocketName;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	ERogueTowerWeaponType WeaponType;
+	ERogueTowerWeaponType WeaponType = ERogueTowerWeaponType::None;
 
 	bool IsValud() const
 	{

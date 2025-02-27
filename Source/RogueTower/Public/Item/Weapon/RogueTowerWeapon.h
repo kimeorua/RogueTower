@@ -9,9 +9,8 @@
 class UStaticMeshComponent;
 class UBoxComponent;
 
-/**
- * 
- */
+DECLARE_DELEGATE_OneParam(FOnTargetInteractedDelegate, AActor*);
+
 UCLASS()
 class ROGUETOWER_API ARogueTowerWeapon : public ARogueTowerItemBase
 {
@@ -26,4 +25,12 @@ private:
 
 public:
 	ARogueTowerWeapon();
+
+	FOnTargetInteractedDelegate OnWeaponHitTarget;
+
+	FORCEINLINE UBoxComponent* GetWeaponCollision() const { return WeaponCollision; }
+
+protected:
+	UFUNCTION()
+	virtual void OnCollisionBoxBegineOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

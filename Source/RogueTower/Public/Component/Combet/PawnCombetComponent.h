@@ -21,4 +21,12 @@ class ROGUETOWER_API UPawnCombetComponent : public UPawnExtensionComponentBase
 
 public:
 	UPawnCombetComponent();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void CollisionOnOff(const ERogueTowerCombetCollisionType Type, bool Activate);
+
+	virtual void OnHitTargetActor(AActor* HitActor);
+
+protected:
+	TArray<AActor*>OverlapedActors;
 };

@@ -30,6 +30,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ARogueTowerPlayerWeapon* GetWeapon(bool IsLeft = true) const;
 
+	virtual void CollisionOnOff(const ERogueTowerCombetCollisionType Type, bool Activate) override;
+
 private:
 	UFUNCTION()
 	void WeaponTagAdd();
