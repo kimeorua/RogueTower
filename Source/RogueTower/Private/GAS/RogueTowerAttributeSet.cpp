@@ -45,6 +45,11 @@ void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	{
 		const float NewMaxHP = FMath::Clamp(GetMaxHP(), GetCurrentHP(), 200.0f);
 		SetMaxHP(NewMaxHP);
+
+		if (UPlayerUIComponent* PlayerUIComponent = ChacedPawnUIInterface->GetPlayerUIComponent())
+		{
+			PlayerUIComponent->OnMaxHPChanged.Broadcast(GetMaxHP());
+		}	
 	}
 	if (Data.EvaluatedData.Attribute == GetCurrentSPAttribute())
 	{

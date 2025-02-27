@@ -4,9 +4,12 @@
 #include "Character/RogueTowerEnemyCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Component/Combet/EnemyCombetComponent.h"
-#include "DataAsset/StartUp/DataAsset_StartUpBase.h"
+#include "DataAsset/StartUp/DataAsset_StartUpEnemy.h"
 #include "Component/UI/EnemyUIComponent.h"
+#include "Components/WidgetComponent.h"
+#include "UI/RogueTowerWidgetBase.h"
 
+#include "DebugHelper.h"
 ARogueTowerEnemyCharacter::ARogueTowerEnemyCharacter()
 {
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
@@ -22,8 +25,9 @@ ARogueTowerEnemyCharacter::ARogueTowerEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.0f;
 
 	EnemyCombetComponent = CreateDefaultSubobject<UEnemyCombetComponent>(TEXT("EnemyCombetComponent"));
-	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
-
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
+	EnemyHPBarWidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("EnemyHPBarWidgetComponent"));
+	EnemyHPBarWidgetComponent->SetupAttachment(GetMesh());
 }
 
 UPawnCombetComponent* ARogueTowerEnemyCharacter::GetPawnCombetComponent() const
@@ -44,11 +48,11 @@ UEnemyUIComponent* ARogueTowerEnemyCharacter::GetEnemyUIComponent() const
 void ARogueTowerEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-}
 
-void ARogueTowerEnemyCharacter::PossessedBy(AController* NewController)
-{
-	Super::PossessedBy(NewController);
+	if (URogueTowerWidgetBase* HPBarWidget = Cast<URogueTowerWidgetBase>(EnemyHPBarWidgetComponent->GetUserWidgetObject()))
+	{
+		HPBarWidget->InitEnemyCharacterWidget(this);
+	}
 
 	if (!StartUpData.IsNull())
 	{
@@ -57,4 +61,9 @@ void ARogueTowerEnemyCharacter::PossessedBy(AController* NewController)
 			LoadData->GiveToAbilitySystemComponent(RogueTowerAbilitySystemComponent);
 		}
 	}
+}
+
+void ARogueTowerEnemyCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
 }

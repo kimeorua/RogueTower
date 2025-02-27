@@ -5,6 +5,7 @@
 #include "Interface/PawnCombetInterface.h"
 #include "Interface/PawnUIInterface.h"
 
+#include "DebugHelper.h"
 void URogueTowerWidgetBase::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -34,7 +35,7 @@ void URogueTowerWidgetBase::InitEnemyCharacterWidget(AActor* OwningEnemyActor)
 		{
 			checkf(EnemyUIComponent, TEXT("Faild to extrac an EnemyUIComponent from %s"), * OwningEnemyActor->GetActorNameOrLabel());
 
-			BP_OnOwningEnemyUIComponentInitalized(EnemyUIComponent);
+			BP_OnOwningEnemyUIComponentInitalized(EnemyUIComponent);;
 		}
 	}
 }

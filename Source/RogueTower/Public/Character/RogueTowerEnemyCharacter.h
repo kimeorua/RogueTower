@@ -8,6 +8,7 @@
 
 class UEnemyCombetComponent;
 class UEnemyUIComponent;
+class UWidgetComponent;
 
 /**
  * 
@@ -41,6 +42,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	UEnemyUIComponent* EnemyUIComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UWidgetComponent* EnemyHPBarWidgetComponent;
 
 public:
 	FORCEINLINE UEnemyCombetComponent* GetEnemyCombetComponent() const { return EnemyCombetComponent; }

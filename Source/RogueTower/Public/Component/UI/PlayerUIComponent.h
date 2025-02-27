@@ -7,6 +7,7 @@
 #include "PlayerUIComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponIconChangedDelegate, TSoftObjectPtr<UTexture2D>, WeaponIcon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHPChangedDelegate, float, NewMaxHP);
 
 UCLASS()
 class ROGUETOWER_API UPlayerUIComponent : public UPawnUIComponent
@@ -19,4 +20,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnWeaponIconChangedDelegate OnWeaponIconChanged;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnMaxHPChangedDelegate OnMaxHPChanged;
 };
