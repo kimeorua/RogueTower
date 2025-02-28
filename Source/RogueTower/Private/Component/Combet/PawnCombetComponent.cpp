@@ -26,4 +26,5 @@ void UPawnCombetComponent::OnHitTargetActor(AActor* HitActor)
 	Data.Target = HitActor;
 
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), RogueTowerTag::Shared_Event_MeleeHit, Data);
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, RogueTowerTag::Shared_Event_HitReact, FGameplayEventData());
 }

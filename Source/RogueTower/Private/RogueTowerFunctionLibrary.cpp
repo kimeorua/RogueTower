@@ -80,7 +80,6 @@ void URogueTowerFunctionLibrary::BP_DoseActorHaveTag(AActor* InActor, FGameplayT
 
 UPawnCombetComponent* URogueTowerFunctionLibrary::NativeGetPawnCombetComponentFromActor(AActor* InActor)
 {
-	check(InActor);
 	if (IPawnCombetInterface* PawnCombetInterface = Cast<IPawnCombetInterface>(InActor))
 	{
 		return PawnCombetInterface->GetPawnCombetComponent();
