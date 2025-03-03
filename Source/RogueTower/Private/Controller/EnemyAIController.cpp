@@ -36,7 +36,7 @@ ETeamAttitude::Type AEnemyAIController::GetTeamAttitudeTowards(const AActor& Oth
 
 	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheack->GetController());
 
-	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
 		return ETeamAttitude::Hostile;
 	}
@@ -49,6 +49,24 @@ void AEnemyAIController::BeginPlay()
 	if (UCrowdFollowingComponent* CrowdComp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
 	{
 		CrowdComp->SetCrowdSimulationState(bEnableDetourCrowdAvoidance ? ECrowdSimulationState::Enabled : ECrowdSimulationState::Disabled);
+		
+		switch (DetourCrowdAvoidanceQuality)
+		{
+		case 1:
+			CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);
+			break;
+		case 2:
+			CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Medium);
+			break;
+		case 3:
+			CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Good);
+			break;
+		case 4:
+			CrowdComp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::High);
+			break;
+		default:
+			break;
+		}
 		CrowdComp->SetAvoidanceGroup(1);
 		CrowdComp->SetGroupsToAvoid(1);
 		CrowdComp->SetCrowdCollisionQueryRange(CollisionQueryRange);
@@ -57,14 +75,14 @@ void AEnemyAIController::BeginPlay()
 
 void AEnemyAIController::OnEnemyPerceptionUpdate(AActor* Actor, FAIStimulus Stimulus)
 {
-	if (Stimulus.WasSuccessfullySensed() && Actor)
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
-		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+		if (!BlackboardComponent->GetValueAsObject(TargetActor))
 		{
-			if (!BlackboardComponent->GetValueAsObject(TargetActor))
+			if (Stimulus.WasSuccessfullySensed() && Actor)
 			{
 				BlackboardComponent->SetValueAsObject(TargetActor, Actor);
-			}	
+			}
 		}
 	}
 }
