@@ -43,5 +43,8 @@ namespace RogueTowerTag
 	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Event_HitReact);
 
 	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Shared_Ability_HitReact);
+
+	/*Enemy Tag*/
+	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
 }
 

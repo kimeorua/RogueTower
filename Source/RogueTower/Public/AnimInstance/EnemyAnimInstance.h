@@ -18,4 +18,6 @@ public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds)override;
 
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anim Data|LocomationData")
+	bool bIsStrafing;
 };
