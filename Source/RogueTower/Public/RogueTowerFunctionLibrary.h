@@ -39,4 +39,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "RogueTower | Function Library", meta = (DisplayName = "Get Pawn Combet Component From Actor", ExpandEnumAsExecs = "OutVaildType"))
 	static UPawnCombetComponent* BP_GetPawnCombetComponentFromActor(AActor* InActor, ERogueTowerVaildType& OutVaildType);
+
+	UFUNCTION(BlueprintCallable, Category = "RogueTower | Function Library")
+	static bool IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn);
 };

@@ -4,6 +4,7 @@
 #include "Item/Weapon/RogueTowerWeapon.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "RogueTowerFunctionLibrary.h"
 
 ARogueTowerWeapon::ARogueTowerWeapon()
 {
@@ -23,7 +24,7 @@ void ARogueTowerWeapon::OnCollisionBoxBegineOverlap(UPrimitiveComponent* Overlap
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (URogueTowerFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}

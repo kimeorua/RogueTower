@@ -20,13 +20,13 @@ class ROGUETOWER_API URogueTowerPlayerGameplayAbility : public URogueTowerGamepl
 
 public:
 
-	UFUNCTION(BlueprintPure, Category = "Wrroir | Ability")
+	UFUNCTION(BlueprintPure, Category = "Rogue Tower | Ability")
 	ARogueTowerPlayerCharacter* GetRogueTowerPlayerCharacterFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Wrroir | Ability")
+	UFUNCTION(BlueprintPure, Category = "Rogue Tower | Ability")
 	ARogueTowerPlayerController* GetRogueTowerPlayerControllerFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Wrroir | Ability")
+	UFUNCTION(BlueprintPure, Category = "Rogue Tower | Ability")
 	UPlayerCombetComponent* GetPlayerCombetComponentFromActorInfo();
 
 private:

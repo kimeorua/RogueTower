@@ -7,6 +7,7 @@
 #include "DataAsset_StartUpEnemy.generated.h"
 
 class UGameplayEffect;
+class URogueTowerEnemyGameplayAbility;
 
 UCLASS()
 class ROGUETOWER_API UDataAsset_StartUpEnemy : public UDataAsset_StartUpBase
@@ -19,4 +20,13 @@ public:
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
 	TArray<TSubclassOf<UGameplayEffect>>StartUpGameplayEffects;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
+	TArray<TSubclassOf<URogueTowerEnemyGameplayAbility>> ActivateOnceEnemyAbilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
+	TArray<TSubclassOf<URogueTowerEnemyGameplayAbility>> EnemyAbilities;
+
+private:
+	void GiveEnemyAbilities(const TArray<TSubclassOf<URogueTowerEnemyGameplayAbility>> InGiveAbilities, URogueTowerAbilitySystemComponent* InAbilitySystemToGive, int32 ApplyLevel);
 };

@@ -21,6 +21,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
 	TArray<TSubclassOf<URogueTowerGameplayAbility>> OnTriggeredAbilities;
 
-	void GrantAbilities(const TArray< TSubclassOf<URogueTowerGameplayAbility >>& InAbilityToGive, URogueTowerAbilitySystemComponent* InAbilitySystemToGive, int32 ApplyLevel = 1);
-
+	void GrantAbilities(TArray< TSubclassOf<URogueTowerGameplayAbility >>& InAbilityToGive, URogueTowerAbilitySystemComponent* InAbilitySystemToGive, int32 ApplyLevel = 1);
 };

@@ -28,13 +28,12 @@ protected:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 	//~ End UGameplayAbility Interface
 
-	UPROPERTY(EditDefaultsOnly, Category = "Rogue Tower Ability")
+	UPROPERTY(EditDefaultsOnly, Category = "RogueTower Ability")
 	EAbilityActivationPolicy AbilityActivationPolicy = EAbilityActivationPolicy::OnTriggered;
 
-	UFUNCTION(BlueprintPure, Category = "Rogue Tower Ability")
+	UFUNCTION(BlueprintPure, Category = "RogueTower Ability")
 	UPawnCombetComponent* GetPawnCombetComponentFromActorInfo()const;
 
-	UFUNCTION(BlueprintPure, Category = "Rogue Tower Ability")
+	UFUNCTION(BlueprintPure, Category = "RogueTower Ability")
 	URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponentFromActorInfo() const;
-	
 };

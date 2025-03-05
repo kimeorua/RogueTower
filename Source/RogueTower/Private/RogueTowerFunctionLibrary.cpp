@@ -6,6 +6,7 @@
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "Interface/PawnCombetInterface.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "GenericTeamAgentInterface.h"
 #include "RogueTowerTags.h"
 
 
@@ -92,4 +93,18 @@ UPawnCombetComponent* URogueTowerFunctionLibrary::BP_GetPawnCombetComponentFromA
 	UPawnCombetComponent* CombetComponent = NativeGetPawnCombetComponentFromActor(InActor);
 	OutVaildType = CombetComponent ? ERogueTowerVaildType::Vaild : ERogueTowerVaildType::Invaild;
 	return CombetComponent;
+}
+
+bool URogueTowerFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn)
+{
+	check(QueryPawn && TargetPawn);
+
+	IGenericTeamAgentInterface* QueryTeamAgent = Cast<IGenericTeamAgentInterface>(QueryPawn->GetController());
+	IGenericTeamAgentInterface* TargetTeamAgent = Cast<IGenericTeamAgentInterface>(TargetPawn->GetController());
+
+	if (QueryTeamAgent && TargetTeamAgent)
+	{
+		return QueryTeamAgent->GetGenericTeamId() != TargetTeamAgent->GetGenericTeamId();
+	}
+	return false;
 }

@@ -19,7 +19,6 @@ public:
 	UFUNCTION(meta = (ApplyLevel = "1"))
 	void GrantHeroWeaponAbilities(const TArray<FPlayerAbilitySet>& InDefaultAbilities, int32 ApplyLevel);
 
-
 	UFUNCTION(BlueprintCallable, Category = "RogueTower|Ability")
 	bool TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate);
 };

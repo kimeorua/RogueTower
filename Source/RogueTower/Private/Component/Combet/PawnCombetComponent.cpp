@@ -4,7 +4,6 @@
 #include "Component/Combet/PawnCombetComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "RogueTowerTags.h"
-#include "DebugHelper.h"
 
 UPawnCombetComponent::UPawnCombetComponent()
 {

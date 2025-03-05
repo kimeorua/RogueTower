@@ -11,7 +11,7 @@ void UDataAsset_StartUpBase::GiveToAbilitySystemComponent(URogueTowerAbilitySyst
 	GrantAbilities(OnTriggeredAbilities, InAbilitySystemToGive, ApplyLevel);
 }
 
-void UDataAsset_StartUpBase::GrantAbilities(const TArray<TSubclassOf<URogueTowerGameplayAbility>>& InAbilityToGive, URogueTowerAbilitySystemComponent* InAbilitySystemToGive, int32 ApplyLevel)
+void UDataAsset_StartUpBase::GrantAbilities(TArray<TSubclassOf<URogueTowerGameplayAbility>>& InAbilityToGive, URogueTowerAbilitySystemComponent* InAbilitySystemToGive, int32 ApplyLevel)
 {
 	if (InAbilityToGive.IsEmpty()) { return; }
 

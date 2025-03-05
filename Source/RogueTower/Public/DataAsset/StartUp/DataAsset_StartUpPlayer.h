@@ -21,5 +21,4 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
 	TArray<FPlayerAbilitySet> PlayerStartUpAbilities;
-
 };
