@@ -15,15 +15,6 @@ ARogueTowerEnemyCharacter* URogueTowerEnemyGameplayAbility::GetRogueTowerEnemyCh
 	return CachedRogueTowerEnemyCharacter.IsValid() ? CachedRogueTowerEnemyCharacter.Get() : nullptr;
 }
 
-AEnemyAIController* URogueTowerEnemyGameplayAbility::GetRogueToweEnemyrControllerFromActorInfo()
-{
-	if (!CachedRogueTowerEnemyController.IsValid())
-	{
-		CachedRogueTowerEnemyController = Cast<AEnemyAIController>(CurrentActorInfo->PlayerController);
-	}
-	return CachedRogueTowerEnemyController.IsValid() ? CachedRogueTowerEnemyController.Get() : nullptr;
-}
-
 UEnemyCombetComponent* URogueTowerEnemyGameplayAbility::GetEnemyCombetComponentFromActorInfo()
 {
 	return GetRogueTowerEnemyCharacterFromActorInfo()->GetEnemyCombetComponent();

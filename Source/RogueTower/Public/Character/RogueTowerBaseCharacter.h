@@ -12,43 +12,47 @@
 class URogueTowerAbilitySystemComponent;
 class URogueTowerAttributeSet;
 class UDataAsset_StartUpBase;
+class UMotionWarpingComponent;
 
-UCLASS()
-class ROGUETOWER_API ARogueTowerBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombetInterface, public IPawnUIInterface
-{
-	GENERATED_BODY()
+	UCLASS()
+	class ROGUETOWER_API ARogueTowerBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombetInterface, public IPawnUIInterface
+	{
+		GENERATED_BODY()
 
-public:
-	// Sets default values for this character's properties
-	ARogueTowerBaseCharacter();
+	public:
+		// Sets default values for this character's properties
+		ARogueTowerBaseCharacter();
 
-	// ~Begin IPawnCombetInterface
-	virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
-	// ~End IPawnCombetInterface
+		// ~Begin IPawnCombetInterface
+		virtual UPawnCombetComponent* GetPawnCombetComponent() const override;
+		// ~End IPawnCombetInterface
 
-	// ~Begin IAbilitySystemInterface
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	// ~End IAbilitySystemInterface
+		// ~Begin IAbilitySystemInterface
+		virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+		// ~End IAbilitySystemInterface
 
-	// ~Begin IPawnUIInterface
-	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	// ~End IPawnUIInterface
+		// ~Begin IPawnUIInterface
+		virtual UPawnUIComponent* GetPawnUIComponent() const override;
+		// ~End IPawnUIInterface
 
-protected:
-	//~ Begin APawn Interface.
-	virtual void PossessedBy(AController* NewController) override;
-	//~ End APawn Interface
+	protected:
+		//~ Begin APawn Interface.
+		virtual void PossessedBy(AController* NewController) override;
+		//~ End APawn Interface
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
-	URogueTowerAbilitySystemComponent* RogueTowerAbilitySystemComponent;
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
+		URogueTowerAbilitySystemComponent* RogueTowerAbilitySystemComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
-	URogueTowerAttributeSet* RogueTowerAttributeSet;
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
+		URogueTowerAttributeSet* RogueTowerAttributeSet;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Character Data")
-	TSoftObjectPtr<UDataAsset_StartUpBase> StartUpData;
+		UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Character Data")
+		TSoftObjectPtr<UDataAsset_StartUpBase> StartUpData;
 
-public:
-	FORCEINLINE URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponent() const { return RogueTowerAbilitySystemComponent; }
-	FORCEINLINE URogueTowerAttributeSet* GetogueTowerAttributeSet() const { return RogueTowerAttributeSet; }
-};
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "MotionWarping")
+		UMotionWarpingComponent* MotionWarpingComponent;
+
+	public:
+		FORCEINLINE URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponent() const { return RogueTowerAbilitySystemComponent; }
+		FORCEINLINE URogueTowerAttributeSet* GetogueTowerAttributeSet() const { return RogueTowerAttributeSet; }
+	};

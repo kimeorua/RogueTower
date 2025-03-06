@@ -8,6 +8,7 @@
 
 class URogueTowerAbilitySystemComponent;
 class UPawnCombetComponent;
+class ARogueTowerBaseCharacter;
 
 
 UENUM(BlueprintType)
@@ -36,4 +37,7 @@ protected:
 
 	UFUNCTION(BlueprintPure, Category = "RogueTower Ability")
 	URogueTowerAbilitySystemComponent* GetRogueTowerAbilitySystemComponentFromActorInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "RogueTower Ability")
+	ARogueTowerBaseCharacter* GetRogueTowerBaseCharacterFromActorInfo() const;
 };

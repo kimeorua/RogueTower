@@ -8,16 +8,18 @@ public class RogueTower : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "" +
+		PublicDependencyModuleNames.AddRange(new string[] {
 			"Core", 
 			"CoreUObject", 
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput",
-			"GameplayTags",
+            "UMG",
+            "GameplayTags",
             "GameplayTasks",
             "AnimGraphRuntime",
-            "AIModule", });
+            "AIModule",
+            "MotionWarping"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

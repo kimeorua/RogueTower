@@ -4,6 +4,7 @@
 #include "GAS/Ability/RogueTowerGameplayAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Component/Combet/PawnCombetComponent.h"
+#include "Character/RogueTowerBaseCharacter.h"
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 
 void URogueTowerGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
@@ -39,4 +40,10 @@ UPawnCombetComponent* URogueTowerGameplayAbility::GetPawnCombetComponentFromActo
 URogueTowerAbilitySystemComponent* URogueTowerGameplayAbility::GetRogueTowerAbilitySystemComponentFromActorInfo() const
 {
 	return Cast<URogueTowerAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
+}
+
+ARogueTowerBaseCharacter* URogueTowerGameplayAbility::GetRogueTowerBaseCharacterFromActorInfo() const
+{
+	ARogueTowerBaseCharacter* BaseCharacter = Cast<ARogueTowerBaseCharacter>(GetAvatarActorFromActorInfo());
+	return IsValid(BaseCharacter) ? BaseCharacter : nullptr;
 }

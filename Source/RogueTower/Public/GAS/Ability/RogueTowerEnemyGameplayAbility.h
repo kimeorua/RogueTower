@@ -20,12 +20,8 @@ public:
 	ARogueTowerEnemyCharacter* GetRogueTowerEnemyCharacterFromActorInfo();
 
 	UFUNCTION(BlueprintPure, Category = "RogueTower | Ability")
-	AEnemyAIController* GetRogueToweEnemyrControllerFromActorInfo();
-
-	UFUNCTION(BlueprintPure, Category = "RogueTower | Ability")
 	UEnemyCombetComponent* GetEnemyCombetComponentFromActorInfo();
 
 private:
 	TWeakObjectPtr<ARogueTowerEnemyCharacter> CachedRogueTowerEnemyCharacter;
-	TWeakObjectPtr<AEnemyAIController> CachedRogueTowerEnemyController;
 };

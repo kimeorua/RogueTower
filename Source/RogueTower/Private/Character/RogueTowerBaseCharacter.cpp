@@ -5,6 +5,7 @@
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "GAS/RogueTowerAttributeSet.h"
 #include "DataAsset/StartUp/DataAsset_StartUpBase.h"
+#include "MotionWarpingComponent.h"
 
 // Sets default values
 ARogueTowerBaseCharacter::ARogueTowerBaseCharacter()
@@ -17,6 +18,7 @@ ARogueTowerBaseCharacter::ARogueTowerBaseCharacter()
 
 	RogueTowerAbilitySystemComponent = CreateDefaultSubobject<URogueTowerAbilitySystemComponent>(TEXT("WrriorAbilitySystemComponent"));
 	RogueTowerAttributeSet = CreateDefaultSubobject<URogueTowerAttributeSet>(TEXT("WrriorAttributeSet"));
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 UPawnCombetComponent* ARogueTowerBaseCharacter::GetPawnCombetComponent() const
