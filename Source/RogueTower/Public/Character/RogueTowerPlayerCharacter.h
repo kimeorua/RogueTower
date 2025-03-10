@@ -38,6 +38,9 @@ public:
 
 	void AddInputContext(UInputMappingContext* WeaponInputContext);
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void SettingLockOnSpringArmLocation(bool bIsLockOn = true);
+
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

@@ -26,7 +26,7 @@ ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(GetRootComponent());
-	SpringArm->TargetArmLength = 400.0f;
+	SpringArm->TargetArmLength = 320.0f;
 	SpringArm->SocketOffset = FVector(0.f, 45.f, 75.f);
 	SpringArm->bUsePawnControlRotation = true;
 

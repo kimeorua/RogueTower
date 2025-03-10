@@ -6,6 +6,8 @@
 #include "GAS/Ability/RogueTowerPlayerGameplayAbility.h"
 #include "PlayerLockOnAbility.generated.h"
 
+class URogueTowerWidgetBase;
+
 UCLASS()
 class ROGUETOWER_API UPlayerLockOnAbility : public URogueTowerPlayerGameplayAbility
 {
@@ -23,6 +25,10 @@ protected:
 private:
 	void TryLockOnTarget();
 	void GetLockOnAbleActor();
+
+	void DrawTargetLockOnUI();
+	void SetLockOnUIPostion();
+
 	void CancelLockOnAbility();
 	void CleanUp();
 
@@ -40,11 +46,20 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Target Lock", meta = (AllowPrivateAccess = "true"))
 	bool ShowDegubShape = false;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Target Lock", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<URogueTowerWidgetBase>TargetLockWidgetClass;
+
 	UPROPERTY()
 	TArray<AActor*>LockOnAbleActors;
 
 	UPROPERTY()
 	AActor* CurrenttLockOnActor = nullptr;
+
+	UPROPERTY()
+	URogueTowerWidgetBase* LockOnUI;
+
+	UPROPERTY()
+	FVector2D LockOnUISize = FVector2D::ZeroVector;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Target Lock", meta = (AllowPrivateAccess = "true"))
 	float RotationSpeed = 5.0f;

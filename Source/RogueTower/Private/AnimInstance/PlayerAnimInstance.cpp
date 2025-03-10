@@ -35,5 +35,7 @@ void UPlayerAnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 		{
 			EquipedWeaponMode = ERogueTowerEquipedWeaponMode::None;
 		}
+
+		bIsLockOn = URogueTowerFunctionLibrary::NativeDoseActorHaveTag(TryGetPawnOwner(), RogueTowerTag::Player_Status_UseLockOn);
 	}
 }

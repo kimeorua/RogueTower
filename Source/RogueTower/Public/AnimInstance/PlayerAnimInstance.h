@@ -18,7 +18,8 @@ class ROGUETOWER_API UPlayerAnimInstance : public URogueTowerBaseAnimInstance
 protected:
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anim Data|LocomationData")
 	ERogueTowerEquipedWeaponMode EquipedWeaponMode = ERogueTowerEquipedWeaponMode::None;
-
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Anim Data|LocomationData")
+	bool bIsLockOn;
 	
 public:
 	virtual void NativeInitializeAnimation() override;

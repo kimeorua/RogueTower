@@ -7,8 +7,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Controller/RogueTowerPlayerController.h"
-
-#include "DebugHelper.h"
+#include "UI/RogueTowerWidgetBase.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
+#include "Blueprint/WidgetTree.h"
+#include "Components/SizeBox.h"
 
 void UPlayerLockOnAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -36,6 +38,8 @@ void UPlayerLockOnAbility::LockOnTick(float DeltaTime)
 	const FRotator CurrentContrlloerRot = GetRogueTowerPlayerControllerFromActorInfo()->GetControlRotation();
 	const FRotator TargetRot = FMath::RInterpTo(CurrentContrlloerRot, LookAtRot, DeltaTime, RotationSpeed);
 
+	SetLockOnUIPostion();
+
 	GetRogueTowerPlayerControllerFromActorInfo()->SetControlRotation(FRotator(TargetRot.Pitch, TargetRot.Yaw, 0.f));
 	GetRogueTowerPlayerCharacterFromActorInfo()->SetActorRotation(FRotator(0.f, TargetRot.Yaw, 0.f));
 }
@@ -50,6 +54,16 @@ void UPlayerLockOnAbility::TryLockOnTarget()
 		return;
 	}
 	CurrenttLockOnActor = GetNearstActorFromLockOnAbleActors(LockOnAbleActors);
+
+	if (CurrenttLockOnActor)
+	{
+		DrawTargetLockOnUI();
+		SetLockOnUIPostion();
+	}
+	else
+	{
+		CancelLockOnAbility();
+	}
 }
 
 void UPlayerLockOnAbility::GetLockOnAbleActor()
@@ -83,6 +97,50 @@ void UPlayerLockOnAbility::GetLockOnAbleActor()
 	}
 }
 
+void UPlayerLockOnAbility::DrawTargetLockOnUI()
+{
+	if (!LockOnUI)
+	{
+		LockOnUI = CreateWidget<URogueTowerWidgetBase>(GetRogueTowerPlayerControllerFromActorInfo(), TargetLockWidgetClass);
+	} 
+	LockOnUI->AddToViewport();
+}
+
+void UPlayerLockOnAbility::SetLockOnUIPostion()
+{
+	if (!LockOnUI || !CurrenttLockOnActor)
+	{
+		CancelLockOnAbility();
+		return;
+	}
+	FVector2D ScreenPostion;
+
+	UWidgetLayoutLibrary::ProjectWorldLocationToWidgetPosition
+	(
+		GetRogueTowerPlayerControllerFromActorInfo(),
+		CurrenttLockOnActor->GetActorLocation(),
+		ScreenPostion,
+		true
+	);
+
+	if (LockOnUISize == FVector2D::ZeroVector)
+	{
+		LockOnUI->WidgetTree->ForEachWidget
+		(
+			[this](UWidget* FoundWidget)
+			{
+				if (USizeBox* FoundSizeBox = Cast<USizeBox>(FoundWidget))
+				{
+					LockOnUISize.X = FoundSizeBox->GetWidthOverride();
+					LockOnUISize.Y = FoundSizeBox->GetHeightOverride();
+				}
+			}
+		);
+	}
+	ScreenPostion -= (LockOnUISize / 2.f);
+	LockOnUI->SetPositionInViewport(ScreenPostion, false);
+}
+
 void UPlayerLockOnAbility::CancelLockOnAbility()
 {
 	CancelAbility(GetCurrentAbilitySpecHandle(), GetCurrentActorInfo(), GetCurrentActivationInfo(), true);
@@ -92,6 +150,12 @@ void UPlayerLockOnAbility::CleanUp()
 {
 	LockOnAbleActors.Empty(); 
 	CurrenttLockOnActor = nullptr;
+	if (IsValid(LockOnUI))
+	{
+		LockOnUI->RemoveFromParent();
+		//LockOnUI = nullptr;
+	}
+	LockOnUISize == FVector2D::ZeroVector;
 }
 
 AActor* UPlayerLockOnAbility::GetNearstActorFromLockOnAbleActors(const TArray<AActor*>& InLockOnAbleActors)
