@@ -16,10 +16,6 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-
-/**
- * 
- */
 UCLASS()
 class ROGUETOWER_API URogueTowerAttributeSet : public UAttributeSet
 {
@@ -56,6 +52,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData ATTSPD;
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, ATTSPD)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Avoid")
+	FGameplayAttributeData AvoidStrenght;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, AvoidStrenght)
 
 private:
 	TWeakInterfacePtr<IPawnUIInterface> ChacedPawnUIInterface;

@@ -20,6 +20,7 @@ URogueTowerAttributeSet::URogueTowerAttributeSet()
 	InitATK(1.0f);
 	InitDEF(1.0f);
 	InitATTSPD(1.0f);
+	InitAvoidStrenght(1.0f);
 }
 
 void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -72,5 +73,9 @@ void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 	if (Data.EvaluatedData.Attribute == GetATTSPDAttribute())
 	{
 		// TODO: 공속 증감 시 작동
+	}
+	if (Data.EvaluatedData.Attribute == GetAvoidStrenghtAttribute())
+	{
+		// TODO: 회피거리 증감 시 작동
 	}
 }

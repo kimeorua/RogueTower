@@ -21,6 +21,7 @@ void UPlayerLockOnAbility::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 
 void UPlayerLockOnAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled)
 {
+	GetRogueTowerPlayerCharacterFromActorInfo()->SettingLockOnSpringArmLocation(false);
 	CleanUp();
 
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
@@ -51,18 +52,21 @@ void UPlayerLockOnAbility::TryLockOnTarget()
 	if (LockOnAbleActors.IsEmpty())
 	{
 		CancelLockOnAbility();
+		GetRogueTowerPlayerCharacterFromActorInfo()->SettingLockOnSpringArmLocation(false);
 		return;
 	}
 	CurrenttLockOnActor = GetNearstActorFromLockOnAbleActors(LockOnAbleActors);
 
 	if (CurrenttLockOnActor)
 	{
+		GetRogueTowerPlayerCharacterFromActorInfo()->SettingLockOnSpringArmLocation(true);
 		DrawTargetLockOnUI();
 		SetLockOnUIPostion();
 	}
 	else
 	{
 		CancelLockOnAbility();
+		GetRogueTowerPlayerCharacterFromActorInfo()->SettingLockOnSpringArmLocation(false);
 	}
 }
 

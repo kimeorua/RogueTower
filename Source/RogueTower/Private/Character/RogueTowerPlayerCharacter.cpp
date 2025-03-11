@@ -15,6 +15,8 @@
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "DataAsset/StartUp/DataAsset_StartUpBase.h"
 #include "Component/UI/PlayerUIComponent.h"
+#include "RogueTowerFunctionLibrary.h"
+
 
 ARogueTowerPlayerCharacter::ARogueTowerPlayerCharacter()
 {
@@ -57,9 +59,9 @@ void ARogueTowerPlayerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 	URogueTowerInputComponent* RogueTowerInputComponen = CastChecked<URogueTowerInputComponent>(PlayerInputComponent);
 
 	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Forward, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Forward);
-	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Back, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Back);
-	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Left, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Left);
 	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Right, ETriggerEvent::Triggered, this, &ThisClass::Input_Move_Right);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Forward, ETriggerEvent::Completed, this, &ThisClass::Input_Move_End);
+	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Move_Right, ETriggerEvent::Completed, this, &ThisClass::Input_Move_End);
 	RogueTowerInputComponen->BindNativeInputAction(InputConfigDataAsset, RogueTowerTag::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 
 	RogueTowerInputComponen->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
@@ -113,32 +115,41 @@ void ARogueTowerPlayerCharacter::AddInputContext(UInputMappingContext* WeaponInp
 	SubSystem->AddMappingContext(WeaponInputContext, 1);
 }
 
-void ARogueTowerPlayerCharacter::Input_Move_Forward()
+void ARogueTowerPlayerCharacter::Input_Move_Forward(const FInputActionValue& Value)
 {
+	if (Value.Get<float>() > 0)
+	{
+		URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(this, RogueTowerTag::Player_Status_MoveForward);
+	}
+	else
+	{
+		URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(this, RogueTowerTag::Player_Status_MoveForward);
+	}
+
 	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
 	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::ForwardVector);
-	AddMovementInput(ForwardDirection, 1.0f);
+	AddMovementInput(ForwardDirection, Value.Get<float>());
 }
 
-void ARogueTowerPlayerCharacter::Input_Move_Back()
+void ARogueTowerPlayerCharacter::Input_Move_Right(const FInputActionValue& Value)
 {
-	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
-	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::ForwardVector);
-	AddMovementInput(ForwardDirection, -1.0f);
-}
-
-void ARogueTowerPlayerCharacter::Input_Move_Left()
-{
-	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
-	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::RightVector);
-	AddMovementInput(ForwardDirection, -1.0f);
-}
-
-void ARogueTowerPlayerCharacter::Input_Move_Right()
-{
+	if (Value.Get<float>() > 0)
+	{
+		URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(this, RogueTowerTag::Player_Status_MoveRight);
+	}
+	else
+	{
+		URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(this, RogueTowerTag::Player_Status_MoveRight);
+	}
 	const FRotator MovementRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
 	const FVector ForwardDirection = MovementRotator.RotateVector(FVector::RightVector);
-	AddMovementInput(ForwardDirection, 1.0f);
+	AddMovementInput(ForwardDirection, Value.Get<float>());
+}
+
+void ARogueTowerPlayerCharacter::Input_Move_End()
+{
+	URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(this, RogueTowerTag::Player_Status_MoveForward);
+	URogueTowerFunctionLibrary::RemoveGameplayTagToActorIfFind(this, RogueTowerTag::Player_Status_MoveRight);
 }
 
 void ARogueTowerPlayerCharacter::Input_Look(const FInputActionValue& InputActionValue)

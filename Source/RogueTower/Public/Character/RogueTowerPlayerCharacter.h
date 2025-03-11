@@ -38,7 +38,7 @@ public:
 
 	void AddInputContext(UInputMappingContext* WeaponInputContext);
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	UFUNCTION(BlueprintImplementableEvent)
 	void SettingLockOnSpringArmLocation(bool bIsLockOn = true);
 
 protected:
@@ -51,6 +51,11 @@ protected:
 	//~ End APawn Interface
 
 private:
+	bool IsMoveForward = false;
+	bool IsMoveBack = false;
+	bool IsMoveRight = false;
+	bool IsMoveLeft = false;
+
 #pragma region Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* SpringArm;
@@ -70,10 +75,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData", meta = (AllowPrivateAccess = "true"))
 	UDataAsset_InputConfig* InputConfigDataAsset;
 
-	void Input_Move_Forward();
-	void Input_Move_Back();
-	void Input_Move_Left();
-	void Input_Move_Right();
+	void Input_Move_Forward(const FInputActionValue& Value);
+	void Input_Move_Right(const FInputActionValue& Value);
+	void Input_Move_End();
 
 	void Input_Look(const FInputActionValue& InputActionValue);
 

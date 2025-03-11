@@ -26,4 +26,6 @@ void UPawnCombetComponent::OnHitTargetActor(AActor* HitActor)
 
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), RogueTowerTag::Shared_Event_MeleeHit, Data);
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, RogueTowerTag::Shared_Event_HitReact, FGameplayEventData());
+
+	//TODO: 회피시 피격 판정 안뜨게 구현
 }
