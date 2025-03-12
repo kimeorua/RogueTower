@@ -37,6 +37,8 @@ namespace RogueTowerTag
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_JumpEnd, "Player.Event.JumpEnd");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindowOpen, "Player.Event.ComboWindowOpen");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindowClose, "Player.Event.ComboWindowClose");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_AvoidStart, "Player.Event.AvoidStart");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_AvoidEnd, "Player.Event.AvoidEnd");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_MoveForward, "Player.Status.MoveForward");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_MoveRight, "Player.Status.MoveRight");

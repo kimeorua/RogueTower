@@ -4,6 +4,7 @@
 #include "Component/Combet/PawnCombetComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "RogueTowerTags.h"
+#include "RogueTowerFunctionLibrary.h"
 
 UPawnCombetComponent::UPawnCombetComponent()
 {
@@ -24,8 +25,14 @@ void UPawnCombetComponent::OnHitTargetActor(AActor* HitActor)
 	Data.Instigator = GetOwningPawn();
 	Data.Target = HitActor;
 
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), RogueTowerTag::Shared_Event_MeleeHit, Data);
-	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, RogueTowerTag::Shared_Event_HitReact, FGameplayEventData());
 
-	//TODO: 회피시 피격 판정 안뜨게 구현
+	if (URogueTowerFunctionLibrary::NativeDoseActorHaveTag(HitActor, RogueTowerTag::Player_Status_Avoid))
+	{
+		return;
+	}
+	else
+	{
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(GetOwningPawn(), RogueTowerTag::Shared_Event_MeleeHit, Data);
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, RogueTowerTag::Shared_Event_HitReact, FGameplayEventData());
+	}
 }
