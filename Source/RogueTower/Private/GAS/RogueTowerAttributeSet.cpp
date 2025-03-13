@@ -6,8 +6,8 @@
 #include "Interface/PawnUIInterface.h"
 #include "Component/UI/PawnUIComponent.h"
 #include "Component/UI/PlayerUIComponent.h"
-
-#include "DebugHelper.h"
+#include "RogueTowerTags.h"
+#include "RogueTowerFunctionLibrary.h"
 
 URogueTowerAttributeSet::URogueTowerAttributeSet()
 {
@@ -21,6 +21,8 @@ URogueTowerAttributeSet::URogueTowerAttributeSet()
 	InitDEF(1.0f);
 	InitATTSPD(1.0f);
 	InitAvoidStrenght(1.0f);
+
+	InitDamage(0.0f);
 }
 
 void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -62,6 +64,24 @@ void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectMod
 			PlayerUIComponent->OnCurrentSPChanged.Broadcast(GetCurrentSP() / GetMaxSP());
 		}
 	}
+
+	if (Data.EvaluatedData.Attribute == GetDamageAttribute())
+	{
+		const float OldHealth = GetCurrentHP();
+		const float DamageDone = GetDamage();
+
+		const float NewCurentHP = FMath::Clamp(OldHealth - DamageDone, 0.0f, GetMaxHP());
+
+		SetCurrentHP(NewCurentHP);
+
+		PawnUIComponent->OnCurrentHPChanged.Broadcast(GetCurrentHP() / GetMaxHP());
+
+		if (GetCurrentHP() == 0.0f)
+		{
+			URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), RogueTowerTag::Shared_Status_Death);
+		}
+	}
+
 	if (Data.EvaluatedData.Attribute == GetATKAttribute())
 	{
 		// TODO : 공격 배율 증감 시 작동

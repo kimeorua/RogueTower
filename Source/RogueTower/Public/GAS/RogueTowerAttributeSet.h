@@ -53,6 +53,10 @@ public:
 	FGameplayAttributeData ATTSPD;
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, ATTSPD)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData Damage;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, Damage)
+
 	UPROPERTY(BlueprintReadOnly, Category = "Avoid")
 	FGameplayAttributeData AvoidStrenght;
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, AvoidStrenght)

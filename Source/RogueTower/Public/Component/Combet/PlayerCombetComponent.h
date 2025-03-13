@@ -42,6 +42,9 @@ private:
 	UFUNCTION()
 	void ApplayStartUpEffect(URogueTowerAbilitySystemComponent* ASC, ARogueTowerPlayerWeapon* Weapon);
 
+	UFUNCTION()
+	void WeaponDataSetting(ARogueTowerPlayerCharacter* InPlayer, ARogueTowerPlayerWeapon* InWeapon, URogueTowerAbilitySystemComponent* InASC);
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	TMap<ERogueTowerWeaponType, ARogueTowerPlayerWeapon*> WeaponMap;

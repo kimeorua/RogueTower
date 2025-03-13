@@ -38,4 +38,7 @@ struct FRogueTowerWeaponData
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon Icon")
 	TSoftObjectPtr<UTexture2D> WeaponIcon;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "StartUpData")
+	TSubclassOf<URogueTowerPlayerGameplayAbility> DeathAbility;
 };

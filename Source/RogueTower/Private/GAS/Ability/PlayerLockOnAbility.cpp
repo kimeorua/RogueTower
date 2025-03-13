@@ -11,6 +11,8 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/SizeBox.h"
+#include "RogueTowerFunctionLibrary.h"
+#include "RogueTowerTags.h"
 
 void UPlayerLockOnAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -29,7 +31,7 @@ void UPlayerLockOnAbility::EndAbility(const FGameplayAbilitySpecHandle Handle, c
 
 void UPlayerLockOnAbility::LockOnTick(float DeltaTime)
 {
-	if (!CurrenttLockOnActor)
+	if (!CurrenttLockOnActor || URogueTowerFunctionLibrary::NativeDoseActorHaveTag(CurrenttLockOnActor, RogueTowerTag::Shared_Status_Death))
 	{
 		CancelLockOnAbility();
 		return;
@@ -93,7 +95,7 @@ void UPlayerLockOnAbility::GetLockOnAbleActor()
 	{
 		if (AActor* HitActor = TraceHit.GetActor())
 		{
-			if (HitActor != GetRogueTowerPlayerCharacterFromActorInfo())
+			if (HitActor != GetRogueTowerPlayerCharacterFromActorInfo() && !(URogueTowerFunctionLibrary::NativeDoseActorHaveTag(HitActor, RogueTowerTag::Shared_Status_Death)))
 			{
 				LockOnAbleActors.AddUnique(HitActor);
 			}

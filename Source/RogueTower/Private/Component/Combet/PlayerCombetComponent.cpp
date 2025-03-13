@@ -9,6 +9,7 @@
 #include "GAS/RogueTowerAbilitySystemComponent.h"
 #include "Item/Weapon/RogueTowerPlayerWeapon.h"
 #include "Component/UI/PlayerUIComponent.h"
+#include "GAS/Ability/RogueTowerPlayerGameplayAbility.h"
 
 #include "DebugHelper.h"
 
@@ -108,22 +109,22 @@ void UPlayerCombetComponent::WeaponTagAdd()
 	{
 		URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(GetOwner(), RogueTowerTag::Player_Weapon_GreateSword);
 		Weapon = WeaponMap.FindRef(ERogueTowerWeaponType::TwoHanded);
-		ASC->GrantHeroWeaponAbilities(Weapon->WeaponData.WeaponAbility, 1);
-		OwnerCharacter->AddInputContext(Weapon->WeaponData.WeaponInputMappingContext);
+
+		WeaponDataSetting(OwnerCharacter, Weapon, ASC);
 	}
 	else if (WeaponMap.Contains(ERogueTowerWeaponType::Duall_L) || WeaponMap.Contains(ERogueTowerWeaponType::Duall_R))
 	{
 		URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(GetOwner(), RogueTowerTag::Player_Weapon_DualBlade);
 		Weapon = WeaponMap.FindRef(ERogueTowerWeaponType::Duall_L);
-		ASC->GrantHeroWeaponAbilities(Weapon->WeaponData.WeaponAbility, 1);
-		OwnerCharacter->AddInputContext(Weapon->WeaponData.WeaponInputMappingContext);
+
+		WeaponDataSetting(OwnerCharacter, Weapon, ASC);
 	}
 	else if (WeaponMap.Contains(ERogueTowerWeaponType::Katana) || WeaponMap.Contains(ERogueTowerWeaponType::Katana_Sheath))
 	{
 		URogueTowerFunctionLibrary::AddGameplayTagToActorIfNone(GetOwner(), RogueTowerTag::Player_Weapon_Katana);
 		Weapon = WeaponMap.FindRef(ERogueTowerWeaponType::Katana);
-		ASC->GrantHeroWeaponAbilities(Weapon->WeaponData.WeaponAbility, 1);
-		OwnerCharacter->AddInputContext(Weapon->WeaponData.WeaponInputMappingContext);
+
+		WeaponDataSetting(OwnerCharacter, Weapon, ASC);
 	}
 	else
 	{
@@ -154,5 +155,21 @@ void UPlayerCombetComponent::ApplayStartUpEffect(URogueTowerAbilitySystemCompone
 			UGameplayEffect* EffectCDO = EffectClass->GetDefaultObject<UGameplayEffect>();
 			ASC->ApplyGameplayEffectToSelf(EffectCDO, 1, ASC->MakeEffectContext());
 		}
+	}
+}
+
+void UPlayerCombetComponent::WeaponDataSetting(ARogueTowerPlayerCharacter* InPlayer, ARogueTowerPlayerWeapon* InWeapon, URogueTowerAbilitySystemComponent* InASC)
+{
+	if (InPlayer && InWeapon && InASC)
+	{
+		InASC->GrantHeroWeaponAbilities(InWeapon->WeaponData.WeaponAbility, 1);
+
+		FGameplayAbilitySpec AbilitySpec(InWeapon->WeaponData.DeathAbility);
+		AbilitySpec.SourceObject = InPlayer;
+		AbilitySpec.Level = 1;
+
+		InASC->GiveAbility(AbilitySpec);
+
+		InPlayer->AddInputContext(InWeapon->WeaponData.WeaponInputMappingContext);
 	}
 }
