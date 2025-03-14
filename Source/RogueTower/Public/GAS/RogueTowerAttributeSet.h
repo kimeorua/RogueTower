@@ -57,6 +57,10 @@ public:
 	FGameplayAttributeData Damage;
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, Damage)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Damage")
+	FGameplayAttributeData WeaponBaseDamage;
+	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, WeaponBaseDamage)
+
 	UPROPERTY(BlueprintReadOnly, Category = "Avoid")
 	FGameplayAttributeData AvoidStrenght;
 	ATTRIBUTE_ACCESSORS(URogueTowerAttributeSet, AvoidStrenght)

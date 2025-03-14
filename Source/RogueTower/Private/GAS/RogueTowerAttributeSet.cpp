@@ -23,6 +23,7 @@ URogueTowerAttributeSet::URogueTowerAttributeSet()
 	InitAvoidStrenght(1.0f);
 
 	InitDamage(0.0f);
+	InitWeaponBaseDamage(0.0f);
 }
 
 void URogueTowerAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
