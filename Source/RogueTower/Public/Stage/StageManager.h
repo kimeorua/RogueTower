@@ -37,7 +37,7 @@ protected:
 	int32 MaxStage = 5;
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Manger")
-	AEnemySpawner* EnemySpawner;
+	AEnemySpawner* EnemySpawner = nullptr;
 
 private:
 	static AStageManager* Instance;
