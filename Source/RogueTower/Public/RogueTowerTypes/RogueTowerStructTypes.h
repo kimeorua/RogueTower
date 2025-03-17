@@ -5,6 +5,7 @@
 #include "RogueTowerStructTypes.generated.h"
 
 class URogueTowerPlayerGameplayAbility;
+class ARogueTowerEnemyCharacter;
 class UInputMappingContext;
 class UGameplayEffect;
 
@@ -41,4 +42,31 @@ struct FRogueTowerWeaponData
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "StartUpData")
 	TSubclassOf<URogueTowerPlayerGameplayAbility> DeathAbility;
+};
+
+USTRUCT(BlueprintType)
+struct FEnemySpawnInfo
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ARogueTowerEnemyCharacter> EnemyClass;
+
+	UPROPERTY(EditAnywhere)
+	TArray<FVector> SpawnLocation;
+
+	UPROPERTY(EditAnywhere)
+	int32 SpawnedEnemyNum = 3;
+};
+
+USTRUCT(BlueprintType)
+struct FEnemySpawnInfoTableRaw : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere)
+	TArray<FEnemySpawnInfo>EnemySpawnerInfo;
+
+	UPROPERTY(EditAnywhere)
+	int32 StageNum = 1;
 };

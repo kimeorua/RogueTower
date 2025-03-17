@@ -6,12 +6,14 @@
 #include "GameFramework/GameModeBase.h"
 #include "RogueTowerGameModeBase.generated.h"
 
-/**
- * 
- */
+class AStageManager;
+
 UCLASS()
 class ROGUETOWER_API ARogueTowerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintPure)
+	AStageManager* GetStageManager() const;
 };
