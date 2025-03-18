@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "RogueTowerTypes/RogueTowerStructTypes.h"
 #include "EnemySpawner.generated.h"
+
+class ARogueTowerPlayerCharacter;
+class ARogueTowerGameModeBase;
 
 UCLASS()
 class ROGUETOWER_API AEnemySpawner : public AActor
@@ -16,12 +20,20 @@ public:
 	AEnemySpawner();
 
 	UFUNCTION()
-	void EnemySpawnerActivate();
+	void EnemySpawnerActivate(int32 StageNum);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Enemy Spawner Info")
-	UDataTable* EnemySpawnerDataTable;
+	UDataTable* EnemySpawnerDataTable = nullptr;
+
+	FEnemySpawnInfoTableRaw* GetCurrentStageSpanwerTableRow(int32 StageNum) const;
+
+private:
+	UPROPERTY()
+	AActor* Player = nullptr;
+	UPROPERTY()
+	ARogueTowerGameModeBase* GameMode = nullptr;
 };

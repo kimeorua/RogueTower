@@ -7,6 +7,7 @@
 #include "StageManager.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSpawnStartDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEnemyDiedDelegate);
 
 class AEnemySpawner;
 
@@ -25,6 +26,11 @@ public:
 	UPROPERTY(BlueprintCallable)
 	FOnSpawnStartDelegate OnSpawnStart;
 
+	UPROPERTY(BlueprintCallable)
+	FOnEnemyDiedDelegate OnEnemyDied;
+
+	void EnemyCountChange(bool IsAdd);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,9 +45,14 @@ protected:
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Manger")
 	AEnemySpawner* EnemySpawner = nullptr;
 
+	int32 CurrentEnemyCount = 0;
+
 private:
 	static AStageManager* Instance;
 
 	UFUNCTION()
 	void EnemySpawn();
+
+	UFUNCTION()
+	void ClearCurrentStage();
 };
