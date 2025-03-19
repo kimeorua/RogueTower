@@ -10,6 +10,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSpawnStartDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEnemyDiedDelegate);
 
 class AEnemySpawner;
+class ARogueTowerPlayerCharacter;
 
 UCLASS()
 class ROGUETOWER_API AStageManager : public AActor
@@ -55,4 +56,7 @@ private:
 
 	UFUNCTION()
 	void ClearCurrentStage();
+
+	UPROPERTY()
+	ARogueTowerPlayerCharacter* Player = nullptr;
 };

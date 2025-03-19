@@ -6,6 +6,9 @@
 #include "Component/UI/PawnUIComponent.h"
 #include "PlayerUIComponent.generated.h"
 
+class ARogueTowerPlayerCharacter;
+class URogueTowerWidgetBase;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponIconChangedDelegate, TSoftObjectPtr<UTexture2D>, WeaponIcon);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHPChangedDelegate, float, NewMaxHP);
 
@@ -23,4 +26,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnMaxHPChangedDelegate OnMaxHPChanged;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<URogueTowerWidgetBase>StatusUpUIClass;
+
+	void CreateStatusUpUI();
 };

@@ -4,6 +4,8 @@
 #include "Stage/StageManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "Stage/EnemySpawner.h"
+#include "Character/RogueTowerPlayerCharacter.h"
+#include "Component/UI/PlayerUIComponent.h"
 
 #include "DebugHelper.h"
 
@@ -59,6 +61,8 @@ void AStageManager::BeginPlay()
     {
         Instance = this;
     }
+
+    if (!Player) { Player = Cast<ARogueTowerPlayerCharacter>(UGameplayStatics::GetActorOfClass(GetWorld(), ARogueTowerPlayerCharacter::StaticClass())); }
 }
 
 void AStageManager::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -75,22 +79,26 @@ void AStageManager::EnemySpawn()
 {
     if (EnemySpawner)
     {
-        EnemySpawner->EnemySpawnerActivate(CurrentStage);
+        if (CurrentStage <= MaxStage)
+        {
+            EnemySpawner->EnemySpawnerActivate(CurrentStage);
+        }
     }
 }
 
 void AStageManager::ClearCurrentStage()
 {
-    Debug::Print(TEXT("Enemy Is Died"));
-
     EnemyCountChange(false);
-
-    Debug::Print(TEXT("Current Enemies : "), CurrentEnemyCount);
-
     if (CurrentEnemyCount == 0)
     {
         CurrentStage++;
 
-        Debug::Print(TEXT("Current Stage : "), CurrentStage);
+        if (Player)
+        {
+            if (CurrentStage <= MaxStage)
+            {
+                Player->GetPlayerUIComponent()->CreateStatusUpUI();
+            }
+        }
     }
 }

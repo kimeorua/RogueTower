@@ -70,3 +70,18 @@ struct FEnemySpawnInfoTableRaw : public FTableRowBase
 	UPROPERTY(EditAnywhere)
 	int32 StageNum = 1;
 };
+
+USTRUCT(BlueprintType)
+struct FStatusUpData
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> StatusUpEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 EffectLevel = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString EffectName;
+};
