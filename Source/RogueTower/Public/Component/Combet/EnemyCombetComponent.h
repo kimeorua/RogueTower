@@ -16,6 +16,22 @@ class ROGUETOWER_API UEnemyCombetComponent : public UPawnCombetComponent
 private:
 	ARogueTowerEnemyWeapon* EnemyWeapon;
 
+protected:
+	//index 0 = Start,  index 1 =  End
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Attack Trace")
+	TArray<FName>TraceSocket_Left;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Attack Trace")
+	TArray<FName>TraceSocket_Right;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Attack Trace")
+	FVector TraceBoxSize = FVector(5000.f, 5000.f, 300.f);
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Attack Trace")
+	TArray<TEnumAsByte<EObjectTypeQuery>> BoxtraceChannel;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Attack Trace")
+	bool ShowDegubShape = false;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void RegisterEnemyWeapon(ARogueTowerEnemyWeapon* InEnemyWeapon);
@@ -24,4 +40,6 @@ public:
 	FORCEINLINE ARogueTowerEnemyWeapon* GetEnemyWeapon() const { return EnemyWeapon; }
 
 	virtual void CollisionOnOff(const ERogueTowerCombetCollisionType Type, bool Activate) override;
+
+	void AttackTraceCheck(TArray<FName> TraceSockets);
 };
