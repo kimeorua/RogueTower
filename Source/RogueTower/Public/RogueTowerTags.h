@@ -56,7 +56,10 @@ namespace RogueTowerTag
 
 	/*Enemy Tag*/
 	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_MeleeAttack);
+	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Ability_MiddleRangeAttack);
 
 	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Status_Strafing);
+
+	ROGUETOWER_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Enemy_Event_AbilityEnd);
 }
 

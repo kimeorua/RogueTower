@@ -45,8 +45,10 @@ void UEnemyCombetComponent::CollisionOnOff(const ERogueTowerCombetCollisionType 
 	}
 	else
 	{
-		if (!IsValid(EnemyWeapon)) { return; }
-		EnemyWeapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		if (IsValid(EnemyWeapon)) 
+		{
+			EnemyWeapon->GetWeaponCollision()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		}
 		OverlapedActors.Empty();
 	}
 }

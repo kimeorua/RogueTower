@@ -57,6 +57,9 @@ namespace RogueTowerTag
 
 	/*Enemy Tag*/
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_MeleeAttack, "Enemy.Ability.MeleeAttack");
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Ability_MiddleRangeAttack, "Enemy.Ability.MidleeRangeAttack");
 
 	UE_DEFINE_GAMEPLAY_TAG(Enemy_Status_Strafing, "Enemy.Status.Strafing");
+
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Event_AbilityEnd, "Enemy.Event.AbilityEnd");
 }
