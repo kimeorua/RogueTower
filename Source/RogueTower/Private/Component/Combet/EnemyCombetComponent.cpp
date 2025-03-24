@@ -6,6 +6,7 @@
 #include "Components/BoxComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Character/RogueTowerEnemyCharacter.h"
+#include "RogueTowerFunctionLibrary.h"
 
 #include "DebugHelper.h"
 
@@ -78,6 +79,9 @@ void UEnemyCombetComponent::AttackTraceCheck(TArray<FName> TraceSockets)
 
 	if (BoxTraceHit.GetActor())
 	{
-		OnHitTargetActor(BoxTraceHit.GetActor());
+		if (URogueTowerFunctionLibrary::IsTargetPawnHostile(Enemy, Cast<APawn>(BoxTraceHit.GetActor())))
+		{
+			OnHitTargetActor(BoxTraceHit.GetActor());
+		}
 	}
 }

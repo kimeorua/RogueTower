@@ -9,6 +9,8 @@
 #include "GameMode/RogueTowerGameModeBase.h"
 #include "Stage/StageManager.h"
 
+#include "DebugHelper.h"
+
 // Sets default values
 AEnemySpawner::AEnemySpawner()
 {
@@ -32,14 +34,19 @@ void AEnemySpawner::EnemySpawnerActivate(int32 StageNum)
 	{
 		if (!SpawnInfo.EnemyClass) { continue; }
 
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
 		for (int i = 0; i < SpawnInfo.SpawnedEnemyNum; i++)
 		{
-			ARogueTowerEnemyCharacter* SpawnedEnemy = GetWorld()->SpawnActor<ARogueTowerEnemyCharacter>(SpawnInfo.EnemyClass);
-			SpawnedEnemy->SetActorLocation(SpawnInfo.SpawnLocation[i]);
-			FRotator Rot = UKismetMathLibrary::FindLookAtRotation(SpawnedEnemy->GetActorLocation(), Player->GetActorLocation());
-			SpawnedEnemy->SetActorRotation(Rot);
-			GameMode->GetStageManager()->EnemyCountChange(true);
-		}
+			ARogueTowerEnemyCharacter* SpawnedEnemy = GetWorld()->SpawnActor<ARogueTowerEnemyCharacter>(SpawnInfo.EnemyClass, SpawnInfo.SpawnLocation[i], FRotator::ZeroRotator, SpawnParams);
+			if (SpawnedEnemy)
+			{
+				FRotator Rot = UKismetMathLibrary::FindLookAtRotation(SpawnedEnemy->GetActorLocation(), Player->GetActorLocation());
+				SpawnedEnemy->SetActorRotation(Rot);
+				GameMode->GetStageManager()->EnemyCountChange(true);
+			}
+		} 
 	}
 }
 

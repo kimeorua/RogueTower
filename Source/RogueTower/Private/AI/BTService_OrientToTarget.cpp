@@ -5,6 +5,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "RogueTowerFunctionLibrary.h"
+#include "RogueTowerTags.h"
 
 UBTService_OrientToTarget::UBTService_OrientToTarget()
 {
@@ -44,7 +46,7 @@ void UBTService_OrientToTarget::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 
 	APawn* OwningPawn = OwnerComp.GetAIOwner()->GetPawn();
 
-	if (OwningPawn && TargetActor)
+	if (OwningPawn && TargetActor && !(URogueTowerFunctionLibrary::NativeDoseActorHaveTag(OwningPawn, RogueTowerTag::Enemy_Status_DoNotRot)))
 	{
 		const FRotator LookAtRot = UKismetMathLibrary::FindLookAtRotation(OwningPawn->GetActorLocation(), TargetActor->GetActorLocation());
 		const FRotator TargetRot = FMath::RInterpTo(OwningPawn->GetActorRotation(), LookAtRot, DeltaSeconds, RotationInterpSpeed);
