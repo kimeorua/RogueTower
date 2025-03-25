@@ -99,6 +99,10 @@ void AStageManager::ClearCurrentStage()
             {
                 Player->GetPlayerUIComponent()->CreateStatusUpUI();
             }
+            else if(CurrentStage > MaxStage)
+            {
+                Player->GetPlayerUIComponent()->CreateClrearUI();
+            }
         }
     }
 }

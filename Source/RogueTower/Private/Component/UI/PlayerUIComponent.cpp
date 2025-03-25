@@ -4,6 +4,8 @@
 #include "Component/UI/PlayerUIComponent.h"
 #include "UI/RogueTowerWidgetBase.h"
 #include "Character/RogueTowerPlayerCharacter.h"
+#include "RogueTowerFunctionLibrary.h"
+#include "RogueTowerTypes/RogueTowerEnums.h"
 
 void UPlayerUIComponent::CreateStatusUpUI()
 {
@@ -12,5 +14,16 @@ void UPlayerUIComponent::CreateStatusUpUI()
 	if (StatusUpUI)
 	{
 		StatusUpUI->AddToViewport();
+	}
+}
+
+void UPlayerUIComponent::CreateClrearUI()
+{
+	URogueTowerWidgetBase* ClearUI = CreateWidget<URogueTowerWidgetBase>(GetWorld()->GetFirstPlayerController(), GameClearUIClass);
+
+	if (ClearUI)
+	{
+		ClearUI->AddToViewport();
+		URogueTowerFunctionLibrary::ToggleInputMode(this, ERogueTowerInputMode::UIOnly);
 	}
 }

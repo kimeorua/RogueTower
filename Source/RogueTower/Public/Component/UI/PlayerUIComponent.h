@@ -30,5 +30,10 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<URogueTowerWidgetBase>StatusUpUIClass;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<URogueTowerWidgetBase>GameClearUIClass;
+
 	void CreateStatusUpUI();
+
+	void CreateClrearUI();
 };
