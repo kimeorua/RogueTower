@@ -12,6 +12,7 @@ namespace RogueTowerTag
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Jump, "InputTag.Jump");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_ComboAttack, "InputTag.ComboAttack");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Avoid, "InputTag.Avoid");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_SPAttack, "InputTag.SPAttack");
 
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold, "InputTag.Hold");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_Hold_Dash, "InputTag.Hold.Dash");
@@ -33,6 +34,7 @@ namespace RogueTowerTag
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_DrawUI, "Player.Ability.DrawUI");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_LockOn, "Player.Ability.LockOn");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Avoid, "Player.Ability.Avoid");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_SPAttack, "Player.Ability.SPAttack");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_JumpEnd, "Player.Event.JumpEnd");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_ComboWindowOpen, "Player.Event.ComboWindowOpen");
