@@ -23,6 +23,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon|Collision", meta = (AllowPrivateAccess = "true"))
 	UBoxComponent* WeaponCollision;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Effect", meta = (AllowPrivateAccess = "true"))
+	UParticleSystemComponent* TrailParticle;
+
 public:
 	ARogueTowerWeapon();
 

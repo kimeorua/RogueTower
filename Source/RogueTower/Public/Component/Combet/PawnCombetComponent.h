@@ -7,9 +7,7 @@
 #include "RogueTowerTypes/RogueTowerEnums.h"
 #include "PawnCombetComponent.generated.h"
 
-
-
-
+class ARogueTowerWeapon;
 
 /**
  * 
